@@ -1,0 +1,66 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: TestStand.Properties
+  name: TestStand.Properties
+  href: api/TestStand.Properties.html
+  commentId: N:TestStand.Properties
+  fullName: TestStand.Properties
+  nameWithType: TestStand.Properties
+- uid: TestStand.Properties.Settings
+  name: Settings
+  href: api/TestStand.Properties.Settings.html
+  commentId: T:TestStand.Properties.Settings
+  fullName: TestStand.Properties.Settings
+  nameWithType: Settings
+- uid: TestStand.Properties.Settings.Default
+  name: Default
+  href: api/TestStand.Properties.Settings.html#TestStand_Properties_Settings_Default
+  commentId: P:TestStand.Properties.Settings.Default
+  fullName: TestStand.Properties.Settings.Default
+  nameWithType: Settings.Default
+- uid: TestStand.Properties.Settings.Default*
+  name: Default
+  href: api/TestStand.Properties.Settings.html#TestStand_Properties_Settings_Default_
+  commentId: Overload:TestStand.Properties.Settings.Default
+  isSpec: "True"
+  fullName: TestStand.Properties.Settings.Default
+  nameWithType: Settings.Default
+- uid: TestStand.Properties.Settings.TimedWaitTestCasesFQFN
+  name: TimedWaitTestCasesFQFN
+  href: api/TestStand.Properties.Settings.html#TestStand_Properties_Settings_TimedWaitTestCasesFQFN
+  commentId: P:TestStand.Properties.Settings.TimedWaitTestCasesFQFN
+  fullName: TestStand.Properties.Settings.TimedWaitTestCasesFQFN
+  nameWithType: Settings.TimedWaitTestCasesFQFN
+- uid: TestStand.Properties.Settings.TimedWaitTestCasesFQFN*
+  name: TimedWaitTestCasesFQFN
+  href: api/TestStand.Properties.Settings.html#TestStand_Properties_Settings_TimedWaitTestCasesFQFN_
+  commentId: Overload:TestStand.Properties.Settings.TimedWaitTestCasesFQFN
+  isSpec: "True"
+  fullName: TestStand.Properties.Settings.TimedWaitTestCasesFQFN
+  nameWithType: Settings.TimedWaitTestCasesFQFN
+- uid: WizardWrx.WebApplicationAids
+  name: WizardWrx.WebApplicationAids
+  href: api/WizardWrx.WebApplicationAids.html
+  commentId: N:WizardWrx.WebApplicationAids
+  fullName: WizardWrx.WebApplicationAids
+  nameWithType: WizardWrx.WebApplicationAids
+- uid: WizardWrx.WebApplicationAids.ConfigFileReaders
+  name: ConfigFileReaders
+  href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.html
+  commentId: T:WizardWrx.WebApplicationAids.ConfigFileReaders
+  fullName: WizardWrx.WebApplicationAids.ConfigFileReaders
+  nameWithType: ConfigFileReaders
+- uid: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String,System.String)
+  name: GetConnectionStringFromWebConfig(String, String)
+  href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.html#WizardWrx_WebApplicationAids_ConfigFileReaders_GetConnectionStringFromWebConfig_System_String_System_String_
+  commentId: M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String,System.String)
+  fullName: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String, System.String)
+  nameWithType: ConfigFileReaders.GetConnectionStringFromWebConfig(String, String)
+- uid: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig*
+  name: GetConnectionStringFromWebConfig
+  href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.html#WizardWrx_WebApplicationAids_ConfigFileReaders_GetConnectionStringFromWebConfig_
+  commentId: Overload:WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig
+  isSpec: "True"
+  fullName: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig
+  nameWithType: ConfigFileReaders.GetConnectionStringFromWebConfig

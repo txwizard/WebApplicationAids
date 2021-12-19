@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WizardWrx.WebApplicationAids</name>
+    </assembly>
+    <members>
+        <member name="T:WizardWrx.WebApplicationAids.ConfigFileReaders">
+            <summary>
+            This static (Shared in Visual Basic) class exposes static (Shared in
+            Visual Basic) methods that enable any assembly, be it EXE or or DLL, to
+            query web.config files for values.
+            </summary>
+        </member>
+        <member name="M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String,System.String)">
+            <summary>
+            Get the connection string identified by name by string
+            <paramref name="pstrConnectionStringName"/> from the official
+            connectionStrings section of the web.config file specified by the
+            relative or absolute file named in string
+            <paramref name="pstrAbsoluteConfigFileName"/>.
+            </summary>
+            <param name="pstrAbsoluteConfigFileName">
+            This string must be either an absolute (fully qualified) file name
+            or a name that is valid relative to the current working directory.
+            </param>
+            <param name="pstrConnectionStringName">
+            This string must contain the "name" property of a node in the
+            connectionStrings section of a well-formed web.config file.
+            </param>
+            <returns>
+            <para>
+            If it succeeds, the return value is a ConnectionStringSettings
+            object that has valid name and connectionString properties.
+            Otherwise, the return value is NULL.
+            </para>
+            <para>
+            Its providerName property may have a value, or it may be null.
+            </para>
+            <para>
+            Regardless, the returned ConnectionStringSettings object can be
+            treated as if it had been read from a web.config file in the usual
+            way.
+            </para>
+            </returns>
+            <remarks>
+            This method works by treating the web.config file as a standard XML
+            document.
+            </remarks>
+        </member>
+    </members>
+</doc>

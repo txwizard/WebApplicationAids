@@ -1,0 +1,12 @@
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Debug\WizardWrx.WebApplicationAids.xml
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Debug\WizardWrx.WebApplicationAids.dll
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Debug\WizardWrx.WebApplicationAids.pdb
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Debug\WizardWrx.BitMath.dll
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Debug\WizardWrx.Common.dll
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Debug\WizardWrx.BitMath.xml
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Debug\WizardWrx.Common.xml
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Debug\WebApplicationAids.csproj.AssemblyReference.cache
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Debug\WebApplicationAids.csproj.CoreCompileInputs.cache
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Debug\WebApplicationAids.csproj.CopyComplete
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Debug\WizardWrx.WebApplicationAids.dll
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Debug\WizardWrx.WebApplicationAids.pdb

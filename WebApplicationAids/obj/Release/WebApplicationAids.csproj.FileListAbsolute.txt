@@ -1,0 +1,12 @@
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Release\WizardWrx.WebApplicationAids.dll
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Release\WizardWrx.WebApplicationAids.pdb
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Release\WizardWrx.BitMath.dll
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Release\WizardWrx.Common.dll
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Release\WizardWrx.BitMath.xml
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Release\WizardWrx.Common.xml
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Release\WebApplicationAids.csproj.AssemblyReference.cache
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Release\WebApplicationAids.csproj.CoreCompileInputs.cache
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Release\WebApplicationAids.csproj.CopyComplete
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Release\WizardWrx.WebApplicationAids.dll
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Release\WizardWrx.WebApplicationAids.pdb
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Release\WizardWrx.WebApplicationAids.xml
