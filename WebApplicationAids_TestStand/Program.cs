@@ -69,11 +69,16 @@
                            a two-property connection string that contains just
                            the bare minimum, name and connectionString
                            properties.
+
+    2022/03/27 1.0.10  DAG Extend the unit test to cover a new method,
+                           GetAppSettingsKeysFromAnyConfig.
     ============================================================================
 */
 
 
 using System;                                                                   // Apart from it being the mother of all namespaces, the Console class lives in this mamespace.
+
+using WizardWrx;
 
 using WizardWrx.ConsoleAppAids3;												// This is the library under test.
 using WizardWrx.DLLConfigurationManager;
@@ -93,6 +98,9 @@ namespace WebApplicationAids_TestStand
 
         static void Main ( string [ ] pastrArgs )
         {
+            const string SAMPLE_APP_CONFIG_FILENAME = @"D:\Source_Code\Visual_Studio\Projects\SalesTalk\Source\salestalk\LeadLife\LeadLife.Operations\User_Activity_Report\App.config";
+            const string SAMPLE_WEB_CONFIG_FILENAME = @"D:\SalesTalk\_Say2Sell\Free_Trial\Web_SalesAcceleration_20211110_112338.config";
+
             //  ----------------------------------------------------------------
             //  This must happen first thing to fully simulate the conditions
             //  that arose in the code that exposed this bug.
@@ -137,7 +145,7 @@ namespace WebApplicationAids_TestStand
 
             s_theApp.LoadBasicErrorMessages ( s_astrErrorMessages );
 
-            string strAbsoluteConfigFileName = @"D:\SalesTalk\_Say2Sell\Free_Trial\Web_SalesAcceleration_20211110_112338.config";
+            string strAbsoluteConfigFileName = SAMPLE_WEB_CONFIG_FILENAME;
             string strConnectionStringName = @"ApplicationServices";
             System.Configuration.ConnectionStringSettings connectionStringSettings = ConfigFileReaders.GetConnectionStringFromWebConfig ( strAbsoluteConfigFileName , strConnectionStringName );
 
@@ -149,7 +157,7 @@ namespace WebApplicationAids_TestStand
             Console.WriteLine ( @"    Connection String Provider Name  = {0}" , connectionStringSettings.ProviderName );
             Console.WriteLine ( @"{0}Connection String successfully read from Web Config File.{0}" , Environment.NewLine );
 
-            strAbsoluteConfigFileName = @"D:\Source_Code\Visual_Studio\Projects\SalesTalk\Source\salestalk\LeadLife\LeadLife.Operations\FreeTrialDashboard\App.config";
+            strAbsoluteConfigFileName = SAMPLE_APP_CONFIG_FILENAME;
             strConnectionStringName = @"FreeTrialDashboard.Properties.Settings.ABACUS_Connection";
             connectionStringSettings = ConfigFileReaders.GetConnectionStringFromWebConfig ( strAbsoluteConfigFileName , strConnectionStringName );
 
@@ -161,11 +169,77 @@ namespace WebApplicationAids_TestStand
             Console.WriteLine ( @"    Connection String Provider Name  = {0}" , connectionStringSettings.ProviderName );
             Console.WriteLine ( @"{0}Connection String successfully read from Web Config File.{0}" , Environment.NewLine );
 
+            ExerciseGetAppSettingsKeysFromAnyConfig (
+                new string [ ]
+                {
+                    SAMPLE_APP_CONFIG_FILENAME ,
+                    SAMPLE_WEB_CONFIG_FILENAME
+                } );
+
             //  ----------------------------------------------------------------
             //  Render the final report, clean up, and shut down.
             //  ----------------------------------------------------------------
 
             s_theApp.NormalExit ( ConsoleAppStateManager.NormalExitAction.WaitForOperator );
 		}   //  static void Main
+
+
+        /// <summary>
+        /// Exercise the new GetAppSettingsKeysFromAnyConfig method.
+        /// </summary>
+        /// <param name="pastrAppConfigFileNames">
+        /// Array of strings, each of which represents the name of a configuration file
+        /// </param>
+        private static void ExerciseGetAppSettingsKeysFromAnyConfig ( string [ ] pastrAppConfigFileNames )
+        {
+            Console.WriteLine ( $"{Environment.NewLine}Static Method GetAppSettingsKeysFromAnyConfig Exercises:{Environment.NewLine}" );
+
+            int intTestCount = pastrAppConfigFileNames.Length;
+
+            for ( int intJ = ArrayInfo.ARRAY_FIRST_ELEMENT ;
+                      intJ < intTestCount ;
+                      intJ++ )
+            {
+                Console.WriteLine ( $"    Begin Test {ArrayInfo.OrdinalFromIndex ( intJ )} of {intTestCount}:" );
+                Console.WriteLine ( $"        Absolute Configuration File Name = {pastrAppConfigFileNames [ intJ ]}" );
+
+                try
+                {
+                    System.Collections.Specialized.NameValueCollection nvcAppSettings1 = ConfigFileReaders.GetAppSettingsKeysFromAnyConfig ( pastrAppConfigFileNames [ intJ ] );
+                    Console.WriteLine ( $"        Count of Matching Settings = {nvcAppSettings1.Count}{Environment.NewLine}" );
+
+                    for ( int intK = ArrayInfo.ARRAY_FIRST_ELEMENT ;
+                              intK < nvcAppSettings1.Count ;
+                              intK++ )
+                    {
+                        int intOrdinal = ArrayInfo.OrdinalFromIndex ( intK );
+                        string strKeyName = nvcAppSettings1.AllKeys [ intJ ];
+                        string strKeyValue = nvcAppSettings1 [ nvcAppSettings1.AllKeys [ intJ ] ];
+                        string strLineTerminator = LineTerminator ( intK , nvcAppSettings1.AllKeys.Length );
+                        Console.WriteLine ( 
+                            @"        Setting {0}: Name = {1}, Value = {2}{3}" ,// Format Control String
+                            intOrdinal ,                                        // Format Item 0: Setting {0}
+                            strKeyName ,                                        // Format Item 1: Name = {1}
+                            strKeyValue ,                                       // Format Item 2: Value = {2}
+                            strLineTerminator );                                // Format Item 3: {3}
+                    }   // for ( int intK = ArrayInfo.ARRAY_FIRST_ELEMENT ; intK < nvcAppSettings1.Count ; intK++ )
+                }
+                catch ( Exception exAllKinds )
+                {
+                    s_theApp.BaseStateManager.AppExceptionLogger.ReportException ( exAllKinds );
+                }
+                finally
+                {
+                    Console.WriteLine ( $"    Test {ArrayInfo.OrdinalFromIndex ( intJ )} of {intTestCount} completed{Environment.NewLine}" );
+                }
+            }   // for ( int intJ = WizardWrx.ArrayInfo.ARRAY_FIRST_ELEMENT ; intJ < intTestCount ; intJ++ )
+
+            Console.WriteLine ( $"Static Method GetAppSettingsKeysFromAnyConfig Exercised:{Environment.NewLine}" );
+        }   /// private static void ExerciseGetAppSettingsKeysFromAnyConfig
+
+        private static string LineTerminator ( int intK , int length )
+        {
+            return Logic.IsLastForIterationLT ( intK , length ) ? Environment.NewLine : SpecialStrings.EMPTY_STRING;
+        }   // private static string LineTerminator
     }   // class Program
 }   // namespace WebApplicationAids_TestStand

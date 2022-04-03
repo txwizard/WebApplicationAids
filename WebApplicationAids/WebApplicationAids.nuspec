@@ -10,7 +10,7 @@
     	<projectUrl>https://github.com/txwizard/WebApplicationAids</projectUrl>
 	    <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>$description$</description>
-	    <releaseNotes>This update of the WizardWrx.WebApplicationAids resolves a bug that caused the initial release to fail when the providerName attribute is absent, and this NuGet package specification designates the target framework, 4.8, explicitly.</releaseNotes>
+	    <releaseNotes>This update of the WizardWrx.WebApplicationAids implements a new GetAppSettingsKeysFromAnyConfig method.</releaseNotes>
     	<copyright>$copyright$</copyright>
     	<tags>ConnectionString app.config web.config</tags>
         <dependencies>

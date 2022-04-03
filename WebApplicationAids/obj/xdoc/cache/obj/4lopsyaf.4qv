@@ -1,0 +1,832 @@
+id: WizardWrx.WebApplicationAids
+language: CSharp
+name:
+  Default: WizardWrx.WebApplicationAids
+qualifiedName:
+  Default: WizardWrx.WebApplicationAids
+type: Assembly
+modifiers: {}
+items:
+- id: WizardWrx.WebApplicationAids
+  commentId: N:WizardWrx.WebApplicationAids
+  language: CSharp
+  name:
+    CSharp: WizardWrx.WebApplicationAids
+    VB: WizardWrx.WebApplicationAids
+  nameWithType:
+    CSharp: WizardWrx.WebApplicationAids
+    VB: WizardWrx.WebApplicationAids
+  qualifiedName:
+    CSharp: WizardWrx.WebApplicationAids
+    VB: WizardWrx.WebApplicationAids
+  type: Namespace
+  assemblies:
+  - WizardWrx.WebApplicationAids
+  modifiers: {}
+  items:
+  - id: WizardWrx.WebApplicationAids.ConfigFileReaders
+    commentId: T:WizardWrx.WebApplicationAids.ConfigFileReaders
+    language: CSharp
+    name:
+      CSharp: ConfigFileReaders
+      VB: ConfigFileReaders
+    nameWithType:
+      CSharp: ConfigFileReaders
+      VB: ConfigFileReaders
+    qualifiedName:
+      CSharp: WizardWrx.WebApplicationAids.ConfigFileReaders
+      VB: WizardWrx.WebApplicationAids.ConfigFileReaders
+    type: Class
+    assemblies:
+    - WizardWrx.WebApplicationAids
+    namespace: WizardWrx.WebApplicationAids
+    source:
+      remote:
+        path: WebApplicationAids/ConfigFileReaders.cs
+        branch: main
+        repo: https://github.com/txwizard/WebApplicationAids.git
+      id: ConfigFileReaders
+      path: ../WebApplicationAids/ConfigFileReaders.cs
+      startLine: 86
+    summary: "\nThis static (Shared in Visual Basic) class exposes static (Shared in\nVisual Basic) methods that enable any assembly, be it EXE or or DLL, to\nquery web.config files for values.\n"
+    example: []
+    syntax:
+      content:
+        CSharp: public static class ConfigFileReaders
+        VB: Public Module ConfigFileReaders
+    inheritance:
+    - System.Object
+    inheritedMembers:
+    - System.Object.ToString
+    - System.Object.Equals(System.Object)
+    - System.Object.Equals(System.Object,System.Object)
+    - System.Object.ReferenceEquals(System.Object,System.Object)
+    - System.Object.GetHashCode
+    - System.Object.GetType
+    - System.Object.MemberwiseClone
+    modifiers:
+      CSharp:
+      - public
+      - static
+      - class
+      VB:
+      - Public
+      - Module
+    items:
+    - id: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String,System.String)
+      commentId: M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String,System.String)
+      language: CSharp
+      name:
+        CSharp: GetConnectionStringFromWebConfig(String, String)
+        VB: GetConnectionStringFromWebConfig(String, String)
+      nameWithType:
+        CSharp: ConfigFileReaders.GetConnectionStringFromWebConfig(String, String)
+        VB: ConfigFileReaders.GetConnectionStringFromWebConfig(String, String)
+      qualifiedName:
+        CSharp: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String, System.String)
+        VB: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String, System.String)
+      type: Method
+      assemblies:
+      - WizardWrx.WebApplicationAids
+      namespace: WizardWrx.WebApplicationAids
+      source:
+        remote:
+          path: WebApplicationAids/ConfigFileReaders.cs
+          branch: main
+          repo: https://github.com/txwizard/WebApplicationAids.git
+        id: GetConnectionStringFromWebConfig
+        path: ../WebApplicationAids/ConfigFileReaders.cs
+        startLine: 152
+      summary: "\nGet the connection string identified by name by string\n<code data-dev-comment-type=\"paramref\" class=\"paramref\">pstrConnectionStringName</code> from the official\nconnectionStrings section of the web.config file specified by the\nrelative or absolute file named in string\n<code data-dev-comment-type=\"paramref\" class=\"paramref\">pstrAbsoluteConfigFileName</code>.\n"
+      remarks: "\nThis method works by treating the web.config file as a standard XML\ndocument.\n"
+      example: []
+      syntax:
+        content:
+          CSharp: public static ConnectionStringSettings GetConnectionStringFromWebConfig(string pstrAbsoluteConfigFileName, string pstrConnectionStringName)
+          VB: Public Shared Function GetConnectionStringFromWebConfig(pstrAbsoluteConfigFileName As String, pstrConnectionStringName As String) As ConnectionStringSettings
+        parameters:
+        - id: pstrAbsoluteConfigFileName
+          type: System.String
+          description: "\nThis string must be either an absolute (fully qualified) file name\nor a name that is valid relative to the current working directory.\n"
+        - id: pstrConnectionStringName
+          type: System.String
+          description: "\nThis string must contain the &quot;name&quot; property of a node in the\nconnectionStrings section of a well-formed web.config file.\n"
+        return:
+          type: System.Configuration.ConnectionStringSettings
+          description: "\n<p>\nIf it succeeds, the return value is a ConnectionStringSettings\nobject that has valid name and connectionString properties.\nOtherwise, the return value is NULL.\n</p>\n<p>\nIts providerName property may have a value, or it may be null.\n</p>\n<p>\nRegardless, the returned ConnectionStringSettings object can be\ntreated as if it had been read from a web.config file in the usual\nway.\n</p>\n"
+      overload: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig*
+      modifiers:
+        CSharp:
+        - public
+        - static
+        VB:
+        - Public
+        - Shared
+    - id: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType,System.String[])
+      commentId: M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType,System.String[])
+      language: CSharp
+      name:
+        CSharp: GetAppSettingsKeysFromAnyConfig(String, ConfigFileReaders.ConfigFileType, String[])
+        VB: GetAppSettingsKeysFromAnyConfig(String, ConfigFileReaders.ConfigFileType, String())
+      nameWithType:
+        CSharp: ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(String, ConfigFileReaders.ConfigFileType, String[])
+        VB: ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(String, ConfigFileReaders.ConfigFileType, String())
+      qualifiedName:
+        CSharp: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String, WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType, System.String[])
+        VB: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String, WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType, System.String())
+      type: Method
+      assemblies:
+      - WizardWrx.WebApplicationAids
+      namespace: WizardWrx.WebApplicationAids
+      source:
+        remote:
+          path: WebApplicationAids/ConfigFileReaders.cs
+          branch: main
+          repo: https://github.com/txwizard/WebApplicationAids.git
+        id: GetAppSettingsKeysFromAnyConfig
+        path: ../WebApplicationAids/ConfigFileReaders.cs
+        startLine: 256
+      summary: "\nExtract the application settings keys from a configuration file.\n"
+      example: []
+      syntax:
+        content:
+          CSharp: public static NameValueCollection GetAppSettingsKeysFromAnyConfig(string pstrAbsoluteConfigFileName, ConfigFileReaders.ConfigFileType penmConfigFileType = ConfigFileReaders.ConfigFileType.Unknown, string[] pastrKeyNames = null)
+          VB: Public Shared Function GetAppSettingsKeysFromAnyConfig(pstrAbsoluteConfigFileName As String, penmConfigFileType As ConfigFileReaders.ConfigFileType = ConfigFileReaders.ConfigFileType.Unknown, pastrKeyNames As String() = Nothing) As NameValueCollection
+        parameters:
+        - id: pstrAbsoluteConfigFileName
+          type: System.String
+          description: "\nThis string must be either an absolute (fully qualified) file name\nor a name that is valid relative to the current working directory.\n"
+        - id: penmConfigFileType
+          type: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+          description: "\nThis optional argument offers a hint in the form of a ConfigFileType\nenumeration member, to help identify the structure of the configuration\nfile.\n"
+        - id: pastrKeyNames
+          type: System.String[]
+          description: "\nPass in the list of names to include, or pass a null reference to\ncause all keys to be returned.\n"
+        return:
+          type: System.Collections.Specialized.NameValueCollection
+          description: "\nThis method returns a System.Collections.Specialized.NameValueCollection\nthat contains the keys specified by <code data-dev-comment-type=\"paramref\" class=\"paramref\">pastrKeyNames</code>,\nor all keys if <code data-dev-comment-type=\"paramref\" class=\"paramref\">pastrKeyNames</code> is null, contained\nin configuration file <code data-dev-comment-type=\"paramref\" class=\"paramref\">pstrAbsoluteConfigFileName</code>.\n"
+      overload: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig*
+      modifiers:
+        CSharp:
+        - public
+        - static
+        VB:
+        - Public
+        - Shared
+  - id: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+    commentId: T:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+    language: CSharp
+    name:
+      CSharp: ConfigFileReaders.ConfigFileType
+      VB: ConfigFileReaders.ConfigFileType
+    nameWithType:
+      CSharp: ConfigFileReaders.ConfigFileType
+      VB: ConfigFileReaders.ConfigFileType
+    qualifiedName:
+      CSharp: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+      VB: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+    type: Enum
+    assemblies:
+    - WizardWrx.WebApplicationAids
+    namespace: WizardWrx.WebApplicationAids
+    source:
+      remote:
+        path: WebApplicationAids/ConfigFileReaders.cs
+        branch: main
+        repo: https://github.com/txwizard/WebApplicationAids.git
+      id: ConfigFileType
+      path: ../WebApplicationAids/ConfigFileReaders.cs
+      startLine: 92
+    summary: "\nA member of this enumeration is the optional penmConfigFileType\nargument to GetAppSettingsKeysFromAnyConfig.\n"
+    example: []
+    syntax:
+      content:
+        CSharp: public enum ConfigFileType
+        VB: Public Enum ConfigFileType
+    modifiers:
+      CSharp:
+      - public
+      - enum
+      VB:
+      - Public
+      - Enum
+    items:
+    - id: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.Unknown
+      commentId: F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.Unknown
+      language: CSharp
+      name:
+        CSharp: Unknown
+        VB: Unknown
+      nameWithType:
+        CSharp: ConfigFileReaders.ConfigFileType.Unknown
+        VB: ConfigFileReaders.ConfigFileType.Unknown
+      qualifiedName:
+        CSharp: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.Unknown
+        VB: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.Unknown
+      type: Field
+      assemblies:
+      - WizardWrx.WebApplicationAids
+      namespace: WizardWrx.WebApplicationAids
+      source:
+        remote:
+          path: WebApplicationAids/ConfigFileReaders.cs
+          branch: main
+          repo: https://github.com/txwizard/WebApplicationAids.git
+        id: Unknown
+        path: ../WebApplicationAids/ConfigFileReaders.cs
+        startLine: 98
+      summary: "\nThe configuration file type is unknown at compile time. The\nroutine is on its own to figure it out.\n"
+      example: []
+      syntax:
+        content:
+          CSharp: Unknown = 0
+          VB: Unknown = 0
+        return:
+          type: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+      modifiers:
+        CSharp:
+        - public
+        - const
+        VB:
+        - Public
+        - Const
+    - id: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsWebConfig
+      commentId: F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsWebConfig
+      language: CSharp
+      name:
+        CSharp: IsWebConfig
+        VB: IsWebConfig
+      nameWithType:
+        CSharp: ConfigFileReaders.ConfigFileType.IsWebConfig
+        VB: ConfigFileReaders.ConfigFileType.IsWebConfig
+      qualifiedName:
+        CSharp: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsWebConfig
+        VB: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsWebConfig
+      type: Field
+      assemblies:
+      - WizardWrx.WebApplicationAids
+      namespace: WizardWrx.WebApplicationAids
+      source:
+        remote:
+          path: WebApplicationAids/ConfigFileReaders.cs
+          branch: main
+          repo: https://github.com/txwizard/WebApplicationAids.git
+        id: IsWebConfig
+        path: ../WebApplicationAids/ConfigFileReaders.cs
+        startLine: 103
+      summary: "\nThe configuration file is a web configuration file.\n"
+      example: []
+      syntax:
+        content:
+          CSharp: IsWebConfig = 1
+          VB: IsWebConfig = 1
+        return:
+          type: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+      modifiers:
+        CSharp:
+        - public
+        - const
+        VB:
+        - Public
+        - Const
+    - id: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsAppConfig
+      commentId: F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsAppConfig
+      language: CSharp
+      name:
+        CSharp: IsAppConfig
+        VB: IsAppConfig
+      nameWithType:
+        CSharp: ConfigFileReaders.ConfigFileType.IsAppConfig
+        VB: ConfigFileReaders.ConfigFileType.IsAppConfig
+      qualifiedName:
+        CSharp: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsAppConfig
+        VB: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsAppConfig
+      type: Field
+      assemblies:
+      - WizardWrx.WebApplicationAids
+      namespace: WizardWrx.WebApplicationAids
+      source:
+        remote:
+          path: WebApplicationAids/ConfigFileReaders.cs
+          branch: main
+          repo: https://github.com/txwizard/WebApplicationAids.git
+        id: IsAppConfig
+        path: ../WebApplicationAids/ConfigFileReaders.cs
+        startLine: 108
+      summary: "\nThe configuration file belongs to an application.\n"
+      example: []
+      syntax:
+        content:
+          CSharp: IsAppConfig = 2
+          VB: IsAppConfig = 2
+        return:
+          type: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+      modifiers:
+        CSharp:
+        - public
+        - const
+        VB:
+        - Public
+        - Const
+    - id: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.DeriveFromFileName
+      commentId: F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.DeriveFromFileName
+      language: CSharp
+      name:
+        CSharp: DeriveFromFileName
+        VB: DeriveFromFileName
+      nameWithType:
+        CSharp: ConfigFileReaders.ConfigFileType.DeriveFromFileName
+        VB: ConfigFileReaders.ConfigFileType.DeriveFromFileName
+      qualifiedName:
+        CSharp: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.DeriveFromFileName
+        VB: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.DeriveFromFileName
+      type: Field
+      assemblies:
+      - WizardWrx.WebApplicationAids
+      namespace: WizardWrx.WebApplicationAids
+      source:
+        remote:
+          path: WebApplicationAids/ConfigFileReaders.cs
+          branch: main
+          repo: https://github.com/txwizard/WebApplicationAids.git
+        id: DeriveFromFileName
+        path: ../WebApplicationAids/ConfigFileReaders.cs
+        startLine: 114
+      summary: "\nIf the file name is web.config, treat it as a web configuration\nfile. Otherwise, treat it as an application configuration file.\n"
+      example: []
+      syntax:
+        content:
+          CSharp: DeriveFromFileName = 3
+          VB: DeriveFromFileName = 3
+        return:
+          type: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+      modifiers:
+        CSharp:
+        - public
+        - const
+        VB:
+        - Public
+        - Const
+references:
+  System:
+    name:
+      CSharp:
+      - name: System
+        nameWithType: System
+        qualifiedName: System
+        isExternal: true
+      VB:
+      - name: System
+        nameWithType: System
+        qualifiedName: System
+    isDefinition: true
+    commentId: N:System
+  System.Object:
+    name:
+      CSharp:
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      VB:
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+    isDefinition: true
+    parent: System
+    commentId: T:System.Object
+  System.Object.ToString:
+    name:
+      CSharp:
+      - id: System.Object.ToString
+        name: ToString
+        nameWithType: Object.ToString
+        qualifiedName: System.Object.ToString
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+      VB:
+      - id: System.Object.ToString
+        name: ToString
+        nameWithType: Object.ToString
+        qualifiedName: System.Object.ToString
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+    isDefinition: true
+    parent: System.Object
+    commentId: M:System.Object.ToString
+  System.Object.Equals(System.Object):
+    name:
+      CSharp:
+      - id: System.Object.Equals(System.Object)
+        name: Equals
+        nameWithType: Object.Equals
+        qualifiedName: System.Object.Equals
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+      VB:
+      - id: System.Object.Equals(System.Object)
+        name: Equals
+        nameWithType: Object.Equals
+        qualifiedName: System.Object.Equals
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+    isDefinition: true
+    parent: System.Object
+    commentId: M:System.Object.Equals(System.Object)
+  System.Object.Equals(System.Object,System.Object):
+    name:
+      CSharp:
+      - id: System.Object.Equals(System.Object,System.Object)
+        name: Equals
+        nameWithType: Object.Equals
+        qualifiedName: System.Object.Equals
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      - name: ', '
+        nameWithType: ', '
+        qualifiedName: ', '
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+      VB:
+      - id: System.Object.Equals(System.Object,System.Object)
+        name: Equals
+        nameWithType: Object.Equals
+        qualifiedName: System.Object.Equals
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      - name: ', '
+        nameWithType: ', '
+        qualifiedName: ', '
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+    isDefinition: true
+    parent: System.Object
+    commentId: M:System.Object.Equals(System.Object,System.Object)
+  System.Object.ReferenceEquals(System.Object,System.Object):
+    name:
+      CSharp:
+      - id: System.Object.ReferenceEquals(System.Object,System.Object)
+        name: ReferenceEquals
+        nameWithType: Object.ReferenceEquals
+        qualifiedName: System.Object.ReferenceEquals
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      - name: ', '
+        nameWithType: ', '
+        qualifiedName: ', '
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+      VB:
+      - id: System.Object.ReferenceEquals(System.Object,System.Object)
+        name: ReferenceEquals
+        nameWithType: Object.ReferenceEquals
+        qualifiedName: System.Object.ReferenceEquals
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      - name: ', '
+        nameWithType: ', '
+        qualifiedName: ', '
+      - id: System.Object
+        name: Object
+        nameWithType: Object
+        qualifiedName: System.Object
+        isExternal: true
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+    isDefinition: true
+    parent: System.Object
+    commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  System.Object.GetHashCode:
+    name:
+      CSharp:
+      - id: System.Object.GetHashCode
+        name: GetHashCode
+        nameWithType: Object.GetHashCode
+        qualifiedName: System.Object.GetHashCode
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+      VB:
+      - id: System.Object.GetHashCode
+        name: GetHashCode
+        nameWithType: Object.GetHashCode
+        qualifiedName: System.Object.GetHashCode
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+    isDefinition: true
+    parent: System.Object
+    commentId: M:System.Object.GetHashCode
+  System.Object.GetType:
+    name:
+      CSharp:
+      - id: System.Object.GetType
+        name: GetType
+        nameWithType: Object.GetType
+        qualifiedName: System.Object.GetType
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+      VB:
+      - id: System.Object.GetType
+        name: GetType
+        nameWithType: Object.GetType
+        qualifiedName: System.Object.GetType
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+    isDefinition: true
+    parent: System.Object
+    commentId: M:System.Object.GetType
+  System.Object.MemberwiseClone:
+    name:
+      CSharp:
+      - id: System.Object.MemberwiseClone
+        name: MemberwiseClone
+        nameWithType: Object.MemberwiseClone
+        qualifiedName: System.Object.MemberwiseClone
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+      VB:
+      - id: System.Object.MemberwiseClone
+        name: MemberwiseClone
+        nameWithType: Object.MemberwiseClone
+        qualifiedName: System.Object.MemberwiseClone
+        isExternal: true
+      - name: (
+        nameWithType: (
+        qualifiedName: (
+      - name: )
+        nameWithType: )
+        qualifiedName: )
+    isDefinition: true
+    parent: System.Object
+    commentId: M:System.Object.MemberwiseClone
+  System.Configuration:
+    name:
+      CSharp:
+      - name: System.Configuration
+        nameWithType: System.Configuration
+        qualifiedName: System.Configuration
+        isExternal: true
+      VB:
+      - name: System.Configuration
+        nameWithType: System.Configuration
+        qualifiedName: System.Configuration
+    isDefinition: true
+    commentId: N:System.Configuration
+  System.Configuration.ConnectionStringSettings:
+    name:
+      CSharp:
+      - id: System.Configuration.ConnectionStringSettings
+        name: ConnectionStringSettings
+        nameWithType: ConnectionStringSettings
+        qualifiedName: System.Configuration.ConnectionStringSettings
+        isExternal: true
+      VB:
+      - id: System.Configuration.ConnectionStringSettings
+        name: ConnectionStringSettings
+        nameWithType: ConnectionStringSettings
+        qualifiedName: System.Configuration.ConnectionStringSettings
+        isExternal: true
+    isDefinition: true
+    parent: System.Configuration
+    commentId: T:System.Configuration.ConnectionStringSettings
+  System.String:
+    name:
+      CSharp:
+      - id: System.String
+        name: String
+        nameWithType: String
+        qualifiedName: System.String
+        isExternal: true
+      VB:
+      - id: System.String
+        name: String
+        nameWithType: String
+        qualifiedName: System.String
+        isExternal: true
+    isDefinition: true
+    parent: System
+    commentId: T:System.String
+  WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig*:
+    name:
+      CSharp:
+      - id: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig*
+        name: GetConnectionStringFromWebConfig
+        nameWithType: ConfigFileReaders.GetConnectionStringFromWebConfig
+        qualifiedName: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig
+      VB:
+      - id: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig*
+        name: GetConnectionStringFromWebConfig
+        nameWithType: ConfigFileReaders.GetConnectionStringFromWebConfig
+        qualifiedName: WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig
+    isDefinition: true
+    commentId: Overload:WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig
+  System.Collections.Specialized:
+    name:
+      CSharp:
+      - name: System.Collections.Specialized
+        nameWithType: System.Collections.Specialized
+        qualifiedName: System.Collections.Specialized
+        isExternal: true
+      VB:
+      - name: System.Collections.Specialized
+        nameWithType: System.Collections.Specialized
+        qualifiedName: System.Collections.Specialized
+    isDefinition: true
+    commentId: N:System.Collections.Specialized
+  System.Collections.Specialized.NameValueCollection:
+    name:
+      CSharp:
+      - id: System.Collections.Specialized.NameValueCollection
+        name: NameValueCollection
+        nameWithType: NameValueCollection
+        qualifiedName: System.Collections.Specialized.NameValueCollection
+        isExternal: true
+      VB:
+      - id: System.Collections.Specialized.NameValueCollection
+        name: NameValueCollection
+        nameWithType: NameValueCollection
+        qualifiedName: System.Collections.Specialized.NameValueCollection
+        isExternal: true
+    isDefinition: true
+    parent: System.Collections.Specialized
+    commentId: T:System.Collections.Specialized.NameValueCollection
+  WizardWrx.WebApplicationAids:
+    name:
+      CSharp:
+      - name: WizardWrx.WebApplicationAids
+        nameWithType: WizardWrx.WebApplicationAids
+        qualifiedName: WizardWrx.WebApplicationAids
+      VB:
+      - name: WizardWrx.WebApplicationAids
+        nameWithType: WizardWrx.WebApplicationAids
+        qualifiedName: WizardWrx.WebApplicationAids
+    isDefinition: true
+    commentId: N:WizardWrx.WebApplicationAids
+  WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType:
+    name:
+      CSharp:
+      - id: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+        name: ConfigFileReaders.ConfigFileType
+        nameWithType: ConfigFileReaders.ConfigFileType
+        qualifiedName: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+      VB:
+      - id: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+        name: ConfigFileReaders.ConfigFileType
+        nameWithType: ConfigFileReaders.ConfigFileType
+        qualifiedName: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+    isDefinition: true
+    parent: WizardWrx.WebApplicationAids
+    commentId: T:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
+  System.String[]:
+    name:
+      CSharp:
+      - id: System.String
+        name: String
+        nameWithType: String
+        qualifiedName: System.String
+        isExternal: true
+      - name: '[]'
+        nameWithType: '[]'
+        qualifiedName: '[]'
+      VB:
+      - id: System.String
+        name: String
+        nameWithType: String
+        qualifiedName: System.String
+        isExternal: true
+      - name: ()
+        nameWithType: ()
+        qualifiedName: ()
+    isDefinition: false
+  WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig*:
+    name:
+      CSharp:
+      - id: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig*
+        name: GetAppSettingsKeysFromAnyConfig
+        nameWithType: ConfigFileReaders.GetAppSettingsKeysFromAnyConfig
+        qualifiedName: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig
+      VB:
+      - id: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig*
+        name: GetAppSettingsKeysFromAnyConfig
+        nameWithType: ConfigFileReaders.GetAppSettingsKeysFromAnyConfig
+        qualifiedName: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig
+    isDefinition: true
+    commentId: Overload:WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig
+  WizardWrx.WebApplicationAids.ConfigFileReaders:
+    name:
+      CSharp:
+      - id: WizardWrx.WebApplicationAids.ConfigFileReaders
+        name: ConfigFileReaders
+        nameWithType: ConfigFileReaders
+        qualifiedName: WizardWrx.WebApplicationAids.ConfigFileReaders
+      VB:
+      - id: WizardWrx.WebApplicationAids.ConfigFileReaders
+        name: ConfigFileReaders
+        nameWithType: ConfigFileReaders
+        qualifiedName: WizardWrx.WebApplicationAids.ConfigFileReaders
+    isDefinition: true
+    commentId: T:WizardWrx.WebApplicationAids.ConfigFileReaders

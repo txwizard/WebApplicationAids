@@ -31,3 +31,4 @@ D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebAppli
 D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids_TestStand\obj\Debug\WebApplicationAids_TestStand.csproj.CopyComplete
 D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids_TestStand\obj\Debug\TestStand.exe
 D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids_TestStand\obj\Debug\TestStand.pdb
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids_TestStand\bin\Debug\WizardWrx.DLLConfigurationManager.dll.config

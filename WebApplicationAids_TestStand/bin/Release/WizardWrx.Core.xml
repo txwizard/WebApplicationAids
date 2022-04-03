@@ -4088,6 +4088,11 @@
               Looks up a localized string similar to CORRUPTED SYSTEM REGISTRY: The GetDisplayTimeZone method found the specified key, but the corresponding Registry key is corrupted.{1}                           Specified ID = {0}.
             </summary>
         </member>
+        <member name="P:WizardWrx.Core.Properties.Resources.ERRMSG_INVALID_GUARD_STRING_PARAMETERS">
+            <summary>
+              Looks up a localized string similar to String extension method GuardStringIfNeeded was invoked with invalid arguments.{3}    String value = {0}{3}    Integer representation of delimiter character = {1}{3}    Integer representation of guard character = {2}.
+            </summary>
+        </member>
         <member name="P:WizardWrx.Core.Properties.Resources.ERRMSG_MISSING_CONFIG_FILE">
             <summary>
               Looks up a localized string similar to There is no valid configuration file for DLL file {0}..
@@ -4377,6 +4382,85 @@
             <summary>
               Looks up a localized string similar to &quot;                                                                                                InnerException                 = [null].
             </summary>
+        </member>
+        <member name="T:WizardWrx.DateTimeExtensions">
+            <summary>
+            This class implements two overloads of DateOfMostRecentWeekdayDay, a
+            static method, implemented as an extension method on the System.DateTime
+            type. The two overloads accept their one externally visible argment as
+            either a DayOfWeek enumeration member or its integral value.
+            </summary>
+        </member>
+        <member name="M:WizardWrx.DateTimeExtensions.DateOfMostRecentWeekday(System.DateTime,System.DayOfWeek)">
+            <summary>
+            Given a date and a day of the week, return the date of the most
+            recent instance of the specified day of the week.
+            </summary>
+            <param name="pdtmThisDate">
+            Specify the DateTime to serve as the reference point against which
+            calculate the most recent weekday given by <paramref name="penmDayOfWeek"/>.
+            </param>
+            <param name="penmDayOfWeek">
+            Specify the weekday in terms of the DayOfWeek enumeration for which the
+            weekday nearest to <paramref name="pdtmThisDate"/> is desired.
+            </param>
+            <returns>
+            The return value is the date, represented as a DateTime object, for
+            which the DayOfWeek property is the value specified by
+            <paramref name="penmDayOfWeek"/> that is the most recent instance of
+            the specified weekday that is on or before the date specified by
+            <paramref name="pdtmThisDate"/>.
+            </returns>
+            <example>
+            When <paramref name="pdtmThisDate"/> is 03/08/2022 and
+            <paramref name="penmDayOfWeek"/> is Sunday, the return value is
+            Sunday, 03/06/2022.
+            </example>
+            <remarks>
+            Since enumerated types can be freely converted to and from integers,
+            and a program stands a fair chance of having the weekday specified
+            in terms of either, two versions of this method are offered. Since
+            integers are easier to manipulate, the overload that accepts the
+            integer representation of the weekday implements both; the overload
+            that takes the enumeration casts it to integer and calls the other
+            overload, through which it returns.
+            </remarks>
+        </member>
+        <member name="M:WizardWrx.DateTimeExtensions.DateOfMostRecentWeekday(System.DateTime,System.Int32)">
+            <summary>
+            Given a date and a day of the week, return the date of the most
+            recent instance of the specified day of the week.
+            </summary>
+            <param name="pdtmThisDate">
+            Specify the DateTime to serve as the reference point against which
+            calculate the most recent weekday given by <paramref name="pintDayOfWeekIndex"/>.
+            </param>
+            <param name="pintDayOfWeekIndex">
+            Specify the weekday in terms of the integer that maps to the intended
+            DayOfWeek enumeration value for which the weekday nearest to
+            <paramref name="pdtmThisDate"/> is desired.
+            </param>
+            <returns>
+            The return value is the date, represented as a DateTime object, for
+            which the DayOfWeek property is the value specified as integer
+            <paramref name="pintDayOfWeekIndex"/> that is the most recent instance of
+            the specified weekday that is on or before the date specified by
+            <paramref name="pdtmThisDate"/>.
+            </returns>
+            <example>
+            When <paramref name="pdtmThisDate"/> is 03/08/2022 and
+            <paramref name="pintDayOfWeekIndex"/> is Sunday, the return value is
+            Sunday, 03/06/2022.
+            </example>
+            <remarks>
+            Since enumerated types can be freely converted to and from integers,
+            and a program stands a fair chance of having the weekday specified
+            in terms of either, two versions of this method are offered. Since
+            integers are easier to manipulate, the overload that accepts the
+            integer representation of the weekday implements both; the overload
+            that takes the enumeration casts it to integer and calls the other
+            overload, through which it returns.
+            </remarks>
         </member>
         <member name="T:WizardWrx.Cryptography.DigestFile">
             <summary>
@@ -8205,6 +8289,34 @@
              returned.
              </remarks>
         </member>
+        <member name="M:WizardWrx.StringExtensions.GuardStringIfNeeded(System.String,System.Char,System.Char)">
+            <summary>
+            Return a new string that is enclosed in a specified quoting
+            character, defaulting to a double quote, if the input string
+            contains a specified delimiter character, defaulting to a comma.
+            </summary>
+            <param name="pstrThisString">
+            Pass in a reference to a string, which may be a null reference or a
+            pointer to the empty string.
+            </param>
+            <param name="pchrDelimiter">
+            Pass in the delimiter character, which cannot be the NULL character,
+            and must differ from the <paramref name="pchrGuard"/> character.
+            </param>
+            <param name="pchrGuard">
+            Pass in the guard character (the quoting character), which cannot be
+            the NULL character, and must differ from the
+            <paramref name="pchrDelimiter"/> character.
+            </param>
+            <returns>
+            When <paramref name="pstrThisString"/> contains at least one instance
+            of the <paramref name="pchrDelimiter"/> character, the return value
+            is <paramref name="pstrThisString"/> enclosed in <paramref name="pchrGuard"/>
+            characters. Otherwise, the string is returned as is, substituting
+            the empty string when <paramref name="pstrThisString"/> is a NULL
+            reference.
+            </returns>
+        </member>
         <member name="M:WizardWrx.StringExtensions.LeftPadNChars(System.String,System.Int32)">
             <summary>
             Left pad the string with a specified number of spaces.
@@ -9947,9 +10059,16 @@
             is supplied by the runtime when the extension method is called.
             </param>
             <returns>
+            <para>
             The abbreviated name is constructed from the name specified on the
             DisplayName property on the TimeZoneInfo object by extracting from
             it the first letter of each word.
+            </para>
+            <para>
+            The Display Name sees much less use because it includes the UTC
+            offset, which confuses users who are unfamiliar with the details of
+            UTC in particular and time zones in general.
+            </para>
             </returns>
         </member>
         <member name="M:WizardWrx.TimeZoneInfoExtensions.AbbreviatedStandardName(System.TimeZoneInfo)">
@@ -9964,6 +10083,34 @@
             The abbreviated name is constructed from the name specified on the
             StandardName property on the TimeZoneInfo object by extracting from
             it the first letter of each word.
+            </returns>
+        </member>
+        <member name="M:WizardWrx.TimeZoneInfoExtensions.GetCurrentTimeZoneName(System.TimeZoneInfo,System.DateTime,System.Boolean)">
+            <summary>
+            Given a DateTime object to establish whether to display the Stanadrd
+            Name or the Daylight Name, return the appropriate string for the
+            part of the year that it represents.
+            </summary>
+            <param name="ptzi">
+            Specify the TimeZoneInfo object to process. This implicit paramteer
+            is supplied by the runtime when the extension method is called.
+            </param>
+            <param name="pdtmDateTime">
+            The IsDaylightSavingTime method on the <paramref name="ptzi"/>
+            instance establishes the correct string to return for the time that
+            it represents, assuming that its DateTimeKind property is Local or
+            that it is implicitly interpreted as such.
+            </param>
+            <param name="pfAbbreviate">
+            When True, this flag causes the abbreviated time zone name to be
+            displayed. Otherwise, the appropriate string from the extended
+            TimeZoneInfo instance is returned.
+            </param>
+            <returns>
+            The return value is the standard or daylight time zone name string
+            or abbreviation that represents the time specified by argument
+            <paramref name="pdtmDateTime"/> as directed by argument
+            <paramref name="pfAbbreviate"/>.
             </returns>
         </member>
         <member name="M:WizardWrx.TimeZoneInfoExtensions.AbbreviateAnyTZName(System.String)">

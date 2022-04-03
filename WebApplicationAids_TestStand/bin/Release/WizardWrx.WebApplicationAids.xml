@@ -11,6 +11,34 @@
             query web.config files for values.
             </summary>
         </member>
+        <member name="T:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType">
+            <summary>
+            A member of this enumeration is the optional penmConfigFileType
+            argument to GetAppSettingsKeysFromAnyConfig.
+            </summary>
+        </member>
+        <member name="F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.Unknown">
+            <summary>
+            The configuration file type is unknown at compile time. The
+            routine is on its own to figure it out.
+            </summary>
+        </member>
+        <member name="F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsWebConfig">
+            <summary>
+            The configuration file is a web configuration file.
+            </summary>
+        </member>
+        <member name="F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsAppConfig">
+            <summary>
+            The configuration file belongs to an application.
+            </summary>
+        </member>
+        <member name="F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.DeriveFromFileName">
+            <summary>
+            If the file name is web.config, treat it as a web configuration
+            file. Otherwise, treat it as an application configuration file.
+            </summary>
+        </member>
         <member name="M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String,System.String)">
             <summary>
             Get the connection string identified by name by string
@@ -46,6 +74,46 @@
             This method works by treating the web.config file as a standard XML
             document.
             </remarks>
+        </member>
+        <member name="M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType,System.String[])">
+            <summary>
+            Extract the application settings keys from a configuration file.
+            </summary>
+            <param name="pstrAbsoluteConfigFileName">
+            This string must be either an absolute (fully qualified) file name
+            or a name that is valid relative to the current working directory.
+            </param>
+            <param name="penmConfigFileType">
+            This optional argument offers a hint in the form of a ConfigFileType
+            enumeration member, to help identify the structure of the configuration
+            file.
+            </param>
+            <param name="pastrKeyNames">
+            Pass in the list of names to include, or pass a null reference to
+            cause all keys to be returned.
+            </param>
+            <returns>
+            This method returns a System.Collections.Specialized.NameValueCollection
+            that contains the keys specified by <paramref name="pastrKeyNames"/>,
+            or all keys if <paramref name="pastrKeyNames"/> is null, contained
+            in configuration file <paramref name="pstrAbsoluteConfigFileName"/>.
+            </returns>
+        </member>
+        <member name="M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetXmlNodeElementEnumerator(System.String)">
+            <summary>
+            Get the System.Collections.IEnumerator for the configuration element
+            (node) of the XML configuration document specified by string
+            <paramref name="pstrAbsoluteConfigFileName"/>.
+            </summary>
+            <param name="pstrAbsoluteConfigFileName">
+            This string must be either an absolute (fully qualified) file name
+            or a name that is valid relative to the current working directory.
+            This parameter is a pass-through from the caller's argument list.
+            </param>
+            <returns>
+            The return value is the System.Collections.IEnumerator for a web or
+            application configuration file.
+            </returns>
         </member>
     </members>
 </doc>
