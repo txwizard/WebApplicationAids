@@ -106,12 +106,23 @@
   <ItemGroup>
     <Compile Include="ConfigFileReaders.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ChangeLog.md" />
     <None Include="packages.config" />
     <None Include="README.md" />
     <None Include="WebApplicationAids.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- 2019/05/19 14:16:44 - DAG Everything from this point to the end is new, and was added to support NuGet package generation. -->

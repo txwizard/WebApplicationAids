@@ -8,20 +8,16 @@
     Class Name:         Program
 
     Synopsis:           This command line utility exercises the routines in the
-                        WizardWrx.ConsoleAppAids3 class.
+                        WizardWrx.WebApplicationAids class.
 
     Remarks:            This class module implements the Program class, which is
-                        composed exclusively of the static void Main method,
-                        which is functionally equivalent to the main() routine
-                        of a standard C program.
-
-                        The initial version number is set to 3.2, to correspond
-                        with the version of the library that was current when it
-                        came into being.
+                        composed of the static void Main method, which is
+                        functionally equivalent to the main() routine of a
+                        standard C program.
 
     Created:            Friday, 17 December 2021
 
-	License:            Copyright (C) 2021, David A. Gray.
+	License:            Copyright (C) 2021-2022, David A. Gray.
 						All rights reserved.
 
                         Redistribution and use in source and binary forms, with
@@ -70,19 +66,21 @@
                            the bare minimum, name and connectionString
                            properties.
 
-    2022/03/27 1.0.10  DAG Extend the unit test to cover a new method,
+    2022/04/03 1.0.36  DAG Extend the unit test to cover a new method,
                            GetAppSettingsKeysFromAnyConfig.
     ============================================================================
 */
 
 
 using System;                                                                   // Apart from it being the mother of all namespaces, the Console class lives in this mamespace.
+using System.Collections.Generic;
 
-using WizardWrx;
+using WizardWrx;                                                                // This is the root namespace of the WizardWrx .NET API, which includes most of the symbolic constants.
 
-using WizardWrx.ConsoleAppAids3;												// This is the library under test.
-using WizardWrx.DLLConfigurationManager;
-using WizardWrx.WebApplicationAids;
+using WizardWrx.ConsoleAppAids3;												// This library provides the startup and shutdown messages and keeps up with the application status code.
+using WizardWrx.DLLConfigurationManager;                                        // This library defines the BaseStateManager and ApplicationExceptionLogger classes.
+
+using WizardWrx.WebApplicationAids;                                             // This is the library under test.
 
 
 namespace WebApplicationAids_TestStand
@@ -96,11 +94,33 @@ namespace WebApplicationAids_TestStand
         static ConsoleAppStateManager s_theApp;
 
 
+        static readonly string [ ] s_astrKeyFilterList = new string [ ]
+        {
+            @"AWSFileBucketName" ,
+            @"AWSSupportBucketName" ,
+            @"DownloadDirectory" ,
+            @"MessageGearsAWSAccountId" ,
+            @"MessageGearsAWSCanonicalId" ,
+            @"MessageGearsEndPoint" ,
+            @"MGAWSAccountKey" ,
+            @"MGAWSSecretKey" ,
+            @"MyAWSAccountKey" ,
+            @"MyAWSBucket" ,
+            @"MyAWSEventQueueUrl" ,
+            @"MyAWSSecretKey" ,
+            @"MyMessageGearsAccountId" ,
+            @"MyMessageGearsApiKey" ,
+            @"NumberOfEventPollerThreads" ,
+            @"SQSMaxBatchSize" ,
+            @"SQSMaxErrorRetry" ,
+            @"SQSVisibilityTimeoutSecs"
+        };  // static readonly string [ ] s_astrKeyFilterList
+
+        const string SAMPLE_APP_CONFIG_FILENAME = @"D:\Source_Code\Visual_Studio\Projects\SalesTalk\Source\salestalk\LeadLife\LeadLife.Operations\User_Activity_Report\App.config";
+        const string SAMPLE_WEB_CONFIG_FILENAME = @"D:\SalesTalk\_Say2Sell\Free_Trial\Web_SalesAcceleration_20211110_112338.config";
+
         static void Main ( string [ ] pastrArgs )
         {
-            const string SAMPLE_APP_CONFIG_FILENAME = @"D:\Source_Code\Visual_Studio\Projects\SalesTalk\Source\salestalk\LeadLife\LeadLife.Operations\User_Activity_Report\App.config";
-            const string SAMPLE_WEB_CONFIG_FILENAME = @"D:\SalesTalk\_Say2Sell\Free_Trial\Web_SalesAcceleration_20211110_112338.config";
-
             //  ----------------------------------------------------------------
             //  This must happen first thing to fully simulate the conditions
             //  that arose in the code that exposed this bug.
@@ -109,6 +129,8 @@ namespace WebApplicationAids_TestStand
             //  ----------------------------------------------------------------
 
             s_theApp = ConsoleAppStateManager.GetTheSingleInstance ( );
+            s_theApp.DisplayBOJMessage ( );
+
             //CmdLneArgsBasic cmdArgs = new CmdLneArgsBasic (
             //    s_achrValidSwitches ,
             //    s_astrNamedArgs ,
@@ -200,29 +222,22 @@ namespace WebApplicationAids_TestStand
                       intJ < intTestCount ;
                       intJ++ )
             {
-                Console.WriteLine ( $"    Begin Test {ArrayInfo.OrdinalFromIndex ( intJ )} of {intTestCount}:" );
+                Console.WriteLine ( $"    Begin Test {ArrayInfo.OrdinalFromIndex ( intJ )} of {intTestCount}:{Environment.NewLine}" );
                 Console.WriteLine ( $"        Absolute Configuration File Name = {pastrAppConfigFileNames [ intJ ]}" );
 
                 try
                 {
-                    System.Collections.Specialized.NameValueCollection nvcAppSettings1 = ConfigFileReaders.GetAppSettingsKeysFromAnyConfig ( pastrAppConfigFileNames [ intJ ] );
-                    Console.WriteLine ( $"        Count of Matching Settings = {nvcAppSettings1.Count}{Environment.NewLine}" );
+                    SortedDictionary<string , object> dctAppSettings1 = ConfigFileReaders.GetAppSettingsKeysFromAnyConfig ( pastrAppConfigFileNames [ intJ ] );
+                    EnumerateAppSettings ( dctAppSettings1 );
 
-                    for ( int intK = ArrayInfo.ARRAY_FIRST_ELEMENT ;
-                              intK < nvcAppSettings1.Count ;
-                              intK++ )
+                    if ( pastrAppConfigFileNames [ intJ ] == SAMPLE_WEB_CONFIG_FILENAME )
                     {
-                        int intOrdinal = ArrayInfo.OrdinalFromIndex ( intK );
-                        string strKeyName = nvcAppSettings1.AllKeys [ intJ ];
-                        string strKeyValue = nvcAppSettings1 [ nvcAppSettings1.AllKeys [ intJ ] ];
-                        string strLineTerminator = LineTerminator ( intK , nvcAppSettings1.AllKeys.Length );
-                        Console.WriteLine ( 
-                            @"        Setting {0}: Name = {1}, Value = {2}{3}" ,// Format Control String
-                            intOrdinal ,                                        // Format Item 0: Setting {0}
-                            strKeyName ,                                        // Format Item 1: Name = {1}
-                            strKeyValue ,                                       // Format Item 2: Value = {2}
-                            strLineTerminator );                                // Format Item 3: {3}
-                    }   // for ( int intK = ArrayInfo.ARRAY_FIRST_ELEMENT ; intK < nvcAppSettings1.Count ; intK++ )
+                        Console.WriteLine ( $"        Repeat the previous test using static list of selected keys containing {s_astrKeyFilterList.Length} key names" );
+                        SortedDictionary<string , object> dctAppSettings2 = ConfigFileReaders.GetAppSettingsKeysFromAnyConfig (
+                            pastrAppConfigFileNames [ intJ ] ,                  // string    pstrAbsoluteConfigFileName
+                            s_astrKeyFilterList );                              // string [] pastrKeyNames              = null
+                        EnumerateAppSettings ( dctAppSettings2 );
+                    }   // if ( pastrAppConfigFileNames [ intJ ] == SAMPLE_WEB_CONFIG_FILENAME )
                 }
                 catch ( Exception exAllKinds )
                 {
@@ -235,7 +250,70 @@ namespace WebApplicationAids_TestStand
             }   // for ( int intJ = WizardWrx.ArrayInfo.ARRAY_FIRST_ELEMENT ; intJ < intTestCount ; intJ++ )
 
             Console.WriteLine ( $"Static Method GetAppSettingsKeysFromAnyConfig Exercised:{Environment.NewLine}" );
-        }   /// private static void ExerciseGetAppSettingsKeysFromAnyConfig
+        }
+
+
+        /// <summary>
+        /// List the values returned by the builder.
+        /// </summary>
+        /// <param name="pdctAppSettings1">
+        /// Pass in a reference to the SortedDictionary returned by
+        /// GetAppSettingsKeysFromAnyConfig.
+        /// </param>
+        private static void EnumerateAppSettings ( SortedDictionary<string , object> pdctAppSettings1 )
+        {
+            Console.WriteLine ( $"        Count of Matching Settings = {pdctAppSettings1.Count}{Environment.NewLine}" );
+            int intOrdinal = ListInfo.LIST_IS_EMPTY;
+
+            foreach ( KeyValuePair<string , object> kvpFlat in pdctAppSettings1 )
+            {
+                if ( kvpFlat.Value is string )
+                {
+                    string strKeyName = kvpFlat.Key;
+                    string strKeyValue = kvpFlat.Value.ToString ( );
+                    string strLineTerminator = LineTerminator ( intOrdinal , pdctAppSettings1.Count );
+                    Console.WriteLine (
+                        @"        Setting {0}: Name = {1}, Value = {2}{3}" ,                    // Format Control String
+                        ++intOrdinal ,                                                          // Format Item 0: Setting {0}
+                        strKeyName ,                                                            // Format Item 1: Name = {1}
+                        strKeyValue ,                                                           // Format Item 2: Value = {2}
+                        strLineTerminator );                                                    // Format Item 3: {3}
+                }   // TRUE (The structure of the application settings section is flat, as it usually is in a web.config file.) block, if ( kvp.Value is string )
+                else
+                {
+                    if ( kvpFlat.Value is SortedDictionary<string , object> )
+                    {
+                        Console.WriteLine (
+                            @"    Configuration section Name = {0}, keys are as follows:{1}" ,  // Format Control String
+                            kvpFlat.Key ,                                                       // Format Item 0: section Name = {0}
+                            Environment.NewLine );                                              // Format Item 1: keys are as follows:(1)
+                        SortedDictionary<string , object> dctConfigSection = ( SortedDictionary<string , object> ) kvpFlat.Value;
+                        int intSectionOrdinal = ListInfo.LIST_IS_EMPTY;
+
+                        foreach ( KeyValuePair<string , object> kvpConfigSection in dctConfigSection )
+                        {
+                            string strKeyName = kvpConfigSection.Key;
+                            string strKeyValue = kvpConfigSection.Value.ToString ( );
+                            string strLineTerminator = LineTerminator ( intSectionOrdinal , dctConfigSection.Count );
+                            Console.WriteLine (
+                                @"            Setting {0}: Name = {1}, Value = {2}{3}" ,        // Format Control String
+                                ++intSectionOrdinal ,                                           // Format Item 0: Setting {0}
+                                strKeyName ,                                                    // Format Item 1: Name = {1}
+                                strKeyValue ,                                                   // Format Item 2: Value = {2}
+                                strLineTerminator );                                            // Format Item 3: {3}
+                        }   // foreach ( KeyValuePair<string , object> kvpConfigSection in dctConfigSection )
+                    }   // TRUE (anticipated outcome) block, if ( kvp.Value is SortedDictionary<string , object> )
+                    else
+                    {
+                        Console.WriteLine (
+                            @"    Configuration section {0} has an unexpected type of {1}" ,    // Format Control String
+                            kvpFlat.Key ,                                                           // Format Item 0: Configuration section {0}
+                            kvpFlat.Value.GetType ( ).FullName );                                   // Format Item 1: has an unexpected type of {1}
+                    }   // FALSE (unanticipated outcome) block, if ( kvp.Value is SortedDictionary<string , object> )
+                }   // FALSE (The structure of the application settings section is hierarchical, as if often the case in a app.config file.) block, if ( kvp.Value is string )
+            }   // foreach ( KeyValuePair<string , object> kvp in dctAppSettings1 )
+        }   // private static void EnumerateAppSettings
+
 
         private static string LineTerminator ( int intK , int length )
         {

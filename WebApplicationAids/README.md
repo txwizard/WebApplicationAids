@@ -7,13 +7,13 @@ app.config, for any application.
 
 The purpose of this class library is to expedite development of applications
 that target any version of the Microsoft .NET Framework, from version 4.8 up, by
-making connection strings, and eventually other settings, accessible to any DLL
-or executable assembly, regardless of the platform targeted by the configuration
-file. This need arose once again when a requirement arose for a satellite 
-assembly to be able to obtain connection strings from the web.config file of the
+making connection strings and other settings accessible to any DLL or executable
+assembly, regardless of the platform targeted by the configuration file. This
+need arose once again when a satellite assembly needed to obtain connection
+strings and application settings keys from the `web.config` file of the
 application that will consume it.
 
-By extension, this library makes web.config files accessible to desktop
+By extension, this library makes `web.config` files accessible to desktop
 applications and vice versa.
 
 Though the runtime will undoubtedly bluster about potential compatibility issues
@@ -58,11 +58,12 @@ oldest.
 
 ## Road Map
 
-For the most part, the constellation of class libraries of which this is the 
+For the most part, the constellation of class libraries of which this is the
 newest member evolves to acommodate needs as they arise in my development work.
 Nevertheless, I have a road map, and it has a few well-marked stops, of which
-the most significant is extending it to be able to read the application settings
-from either an app.config or a web.config.
+the most significant is extending it to stand in for the standard
+ConfigurationManager object when it is inconvenient for one reason or another
+to instantiate one.
 
 ## Contributing
 
@@ -94,8 +95,8 @@ always cause confusion. Astute observers will notice that they occur from time
 to time, because there are _a few cases_ where they happen to be less confusing.
 
 5.	__Array Initializers__: Arrays that have more than a very few initializers,
-or that are initialized to long strings, are laid out as lists, with line
-comments, if necessary, that describe the intent of each item.
+or that are initialized to long strings are laid out as lists with line comments
+if necessary that describe the intent of each item.
 
 6.	__Format Item Lists__: Lists of items that are paired with format items in
 calls to `string.Format`, `Console.WriteLine`, and their relatives, are laid out

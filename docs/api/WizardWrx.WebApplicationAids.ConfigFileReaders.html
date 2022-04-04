@@ -117,19 +117,19 @@ query web.config files for values.</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/txwizard/WebApplicationAids/new/main/apiSpec/new?filename=WizardWrx_WebApplicationAids_ConfigFileReaders_GetAppSettingsKeysFromAnyConfig_System_String_WizardWrx_WebApplicationAids_ConfigFileReaders_ConfigFileType_System_String___.md&amp;value=---%0Auid%3A%20WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String%2CWizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/txwizard/WebApplicationAids/new/main/apiSpec/new?filename=WizardWrx_WebApplicationAids_ConfigFileReaders_GetAppSettingsKeysFromAnyConfig_System_String_System_String___.md&amp;value=---%0Auid%3A%20WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/txwizard/WebApplicationAids/blob/main/WebApplicationAids/ConfigFileReaders.cs/#L257">View Source</a>
+    <a href="https://github.com/txwizard/WebApplicationAids/blob/main/WebApplicationAids/ConfigFileReaders.cs/#L220">View Source</a>
   </span>
   <a id="WizardWrx_WebApplicationAids_ConfigFileReaders_GetAppSettingsKeysFromAnyConfig_" data-uid="WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig*"></a>
-  <h4 id="WizardWrx_WebApplicationAids_ConfigFileReaders_GetAppSettingsKeysFromAnyConfig_System_String_WizardWrx_WebApplicationAids_ConfigFileReaders_ConfigFileType_System_String___" data-uid="WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType,System.String[])">GetAppSettingsKeysFromAnyConfig(String, ConfigFileReaders.ConfigFileType, String[])</h4>
+  <h4 id="WizardWrx_WebApplicationAids_ConfigFileReaders_GetAppSettingsKeysFromAnyConfig_System_String_System_String___" data-uid="WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,System.String[])">GetAppSettingsKeysFromAnyConfig(String, String[])</h4>
   <div class="markdown level1 summary"><p>Extract the application settings keys from a configuration file.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static NameValueCollection GetAppSettingsKeysFromAnyConfig(string pstrAbsoluteConfigFileName, ConfigFileReaders.ConfigFileType penmConfigFileType = ConfigFileReaders.ConfigFileType.Unknown, string[] pastrKeyNames = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static SortedDictionary&lt;string, object&gt; GetAppSettingsKeysFromAnyConfig(string pstrAbsoluteConfigFileName, string[] pastrKeyNames = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -146,14 +146,6 @@ query web.config files for values.</p>
         <td><span class="parametername">pstrAbsoluteConfigFileName</span></td>
         <td><p>This string must be either an absolute (fully qualified) file name
 or a name that is valid relative to the current working directory.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.html">ConfigFileReaders.ConfigFileType</a></td>
-        <td><span class="parametername">penmConfigFileType</span></td>
-        <td><p>This optional argument offers a hint in the form of a ConfigFileType
-enumeration member, to help identify the structure of the configuration
-file.</p>
 </td>
       </tr>
       <tr>
@@ -175,11 +167,28 @@ cause all keys to be returned.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Specialized.NameValueCollection</span></td>
+        <td><span class="xref">System.Collections.Generic.SortedDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
         <td><p>This method returns a System.Collections.Specialized.NameValueCollection
 that contains the keys specified by <code data-dev-comment-type="paramref" class="paramref">pastrKeyNames</code>,
 or all keys if <code data-dev-comment-type="paramref" class="paramref">pastrKeyNames</code> is null, contained
 in configuration file <code data-dev-comment-type="paramref" class="paramref">pstrAbsoluteConfigFileName</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>An InvalidOperationException Exception arises when the sections are
+nested more than two deep.</p>
 </td>
       </tr>
     </tbody>
@@ -189,7 +198,7 @@ in configuration file <code data-dev-comment-type="paramref" class="paramref">ps
     <a href="https://github.com/txwizard/WebApplicationAids/new/main/apiSpec/new?filename=WizardWrx_WebApplicationAids_ConfigFileReaders_GetConnectionStringFromWebConfig_System_String_System_String_.md&amp;value=---%0Auid%3A%20WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/txwizard/WebApplicationAids/blob/main/WebApplicationAids/ConfigFileReaders.cs/#L153">View Source</a>
+    <a href="https://github.com/txwizard/WebApplicationAids/blob/main/WebApplicationAids/ConfigFileReaders.cs/#L128">View Source</a>
   </span>
   <a id="WizardWrx_WebApplicationAids_ConfigFileReaders_GetConnectionStringFromWebConfig_" data-uid="WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig*"></a>
   <h4 id="WizardWrx_WebApplicationAids_ConfigFileReaders_GetConnectionStringFromWebConfig_System_String_System_String_" data-uid="WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String,System.String)">GetConnectionStringFromWebConfig(String, String)</h4>
@@ -273,7 +282,7 @@ document.</p>
                     <a href="https://github.com/txwizard/WebApplicationAids/new/main/apiSpec/new?filename=WizardWrx_WebApplicationAids_ConfigFileReaders.md&amp;value=---%0Auid%3A%20WizardWrx.WebApplicationAids.ConfigFileReaders%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/txwizard/WebApplicationAids/blob/main/WebApplicationAids/ConfigFileReaders.cs/#L87" class="contribution-link">View Source</a>
+                    <a href="https://github.com/txwizard/WebApplicationAids/blob/main/WebApplicationAids/ConfigFileReaders.cs/#L92" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

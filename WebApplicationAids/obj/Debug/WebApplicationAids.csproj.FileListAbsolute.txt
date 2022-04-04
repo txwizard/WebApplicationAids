@@ -18,3 +18,5 @@ D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebAppli
 D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Debug\WizardWrx.ASCIIInfo.xml
 D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Debug\WizardWrx.Core.xml
 D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\bin\Debug\WizardWrx.FormatStringEngine.xml
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Debug\WizardWrx.WebApplicationAids.Properties.Resources.resources
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids\obj\Debug\WebApplicationAids.csproj.GenerateResource.cache

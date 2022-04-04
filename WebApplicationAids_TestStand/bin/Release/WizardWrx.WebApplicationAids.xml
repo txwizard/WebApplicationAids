@@ -11,34 +11,6 @@
             query web.config files for values.
             </summary>
         </member>
-        <member name="T:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType">
-            <summary>
-            A member of this enumeration is the optional penmConfigFileType
-            argument to GetAppSettingsKeysFromAnyConfig.
-            </summary>
-        </member>
-        <member name="F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.Unknown">
-            <summary>
-            The configuration file type is unknown at compile time. The
-            routine is on its own to figure it out.
-            </summary>
-        </member>
-        <member name="F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsWebConfig">
-            <summary>
-            The configuration file is a web configuration file.
-            </summary>
-        </member>
-        <member name="F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsAppConfig">
-            <summary>
-            The configuration file belongs to an application.
-            </summary>
-        </member>
-        <member name="F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.DeriveFromFileName">
-            <summary>
-            If the file name is web.config, treat it as a web configuration
-            file. Otherwise, treat it as an application configuration file.
-            </summary>
-        </member>
         <member name="M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetConnectionStringFromWebConfig(System.String,System.String)">
             <summary>
             Get the connection string identified by name by string
@@ -75,18 +47,13 @@
             document.
             </remarks>
         </member>
-        <member name="M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType,System.String[])">
+        <member name="M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,System.String[])">
             <summary>
             Extract the application settings keys from a configuration file.
             </summary>
             <param name="pstrAbsoluteConfigFileName">
             This string must be either an absolute (fully qualified) file name
             or a name that is valid relative to the current working directory.
-            </param>
-            <param name="penmConfigFileType">
-            This optional argument offers a hint in the form of a ConfigFileType
-            enumeration member, to help identify the structure of the configuration
-            file.
             </param>
             <param name="pastrKeyNames">
             Pass in the list of names to include, or pass a null reference to
@@ -98,6 +65,43 @@
             or all keys if <paramref name="pastrKeyNames"/> is null, contained
             in configuration file <paramref name="pstrAbsoluteConfigFileName"/>.
             </returns>
+            <exception cref="T:System.InvalidOperationException">
+            An InvalidOperationException Exception arises when the sections are
+            nested more than two deep.
+            </exception>
+        </member>
+        <member name="M:WizardWrx.WebApplicationAids.ConfigFileReaders.AddElementToDoctionary(System.Collections.Generic.SortedDictionary{System.String,System.Object},System.Int32,System.Int32,System.Xml.XmlElement,System.Collections.Generic.HashSet{System.String})">
+            <summary>
+            <para>
+            Assuming that <paramref name="pxmlAppSettingsKey"/> has 2 attributes
+            named "key" and "value" respectively, construct a new key/value pair
+            and append it to <paramref name="pdctAppSettings"/>,
+            </para>
+            <para>
+            The other two arguments, <paramref name="pntChildNodeCount"/> and
+            <paramref name="pintJ"/>, go into the trace logger to give the other
+            information context.
+            </para>
+            </summary>
+            <param name="pdctAppSettings">
+            The SortedDictionary of objects, which receive the values, keyed by
+            the string node names, to which the node is appended.
+            </param>
+            <param name="pntChildNodeCount">
+            The count of child nodes goes into the trace message.
+            </param>
+            <param name="pintJ">
+            The index of the FOR loop from which this routine is called goes
+            into the trace message.
+            </param>
+            <param name="pxmlAppSettingsKey">
+            This XmlElement node contains the name and value to append to the
+            <paramref name="pdctAppSettings"/>.
+            </param>
+            <param name="pshsKeyNames">
+            Optional HashSet of strings, each of which is a key to return in the
+            list. When this argument is omitted or null, all keys are returned.
+            </param>
         </member>
         <member name="M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetXmlNodeElementEnumerator(System.String)">
             <summary>
@@ -114,6 +118,120 @@
             The return value is the System.Collections.IEnumerator for a web or
             application configuration file.
             </returns>
+        </member>
+        <member name="M:WizardWrx.WebApplicationAids.ConfigFileReaders.IncludeKeyInList(System.String,System.Collections.Generic.HashSet{System.String})">
+            <summary>
+            Pass in the HashSet that was supplied to the calling routine if
+            there is one. When <paramref name="pshsKeyNames"/> is either empty
+            or the null reference, all keys are returned.
+            </summary>
+            <param name="pstrKeyName">
+            The string representation of the current key to match against the
+            list in <paramref name="pshsKeyNames"/> if present.
+            </param>
+            <param name="pshsKeyNames">
+            Pass in an optional HashSet of keys to include in the report. When
+            this argument is an empty HashSet or a null reference, the method
+            returns True, causing all keys to be returned.
+            </param>
+            <returns>
+            When <paramref name="pshsKeyNames"/> is empty or a null reference,
+            return TRUE, causing all keys to be returned. Otherwise, return TRUE
+            only when <paramref name="pstrKeyName"/> is valid (neither a null
+            reference, nor the empty string) and it is in the
+            <paramref name="pshsKeyNames"/> list.
+            </returns>
+        </member>
+        <member name="T:WizardWrx.WebApplicationAids.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.APP_SETTINGS_NAME_APP_CONFIG">
+            <summary>
+              Looks up a localized string similar to applicationSettings.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.APP_SETTINGS_NAME_CONFIGURATION">
+            <summary>
+              Looks up a localized string similar to configuration.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.APP_SETTINGS_NAME_WEB_CONFIG">
+            <summary>
+              Looks up a localized string similar to appSettings.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.ERRMSG_SECTION_UNEXPECTED_GEOMETRY">
+            <summary>
+              Looks up a localized string similar to XML Node {0} of parent node {1} has unexpected attributes named {2} and {3}. The geometry of this configuration file is unsupported..
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.ERRMSG_SECTIONS_NESTED_TOO_DEEPLY">
+            <summary>
+              Looks up a localized string similar to &quot;XML Element named {0} of element named {1} has children. Application configurations with great grandchildren are unsupported..
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.TRACEMSG_1">
+            <summary>
+              Looks up a localized string similar to In method GetAppSettingsKeysFromAnyConfig, found XML Node named {0} with {1} children..
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.TRACEMSG_2">
+            <summary>
+              Looks up a localized string similar to     Node {0} of {1}: Name = {2}, Children = {3}, InnerText = {4}.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.TRACEMSG_3">
+            <summary>
+              Looks up a localized string similar to     Node {0} of {1}: Type = {2}.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.TRACEMSG_4">
+            <summary>
+              Looks up a localized string similar to     Node {0} of {1}: Name = {2}, Children = {3}, Name = {4}, Value = {5}.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.TRACEMSG_5">
+            <summary>
+              Looks up a localized string similar to     Node {0} of {1}: Name = {2}, Children = {3}, Attribute0Name = {4}, Attribute1Name = {5}.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.TRACEMSG_6">
+            <summary>
+              Looks up a localized string similar to     Node {0} of {1}: Name = {2}, Children = {3}, Actual attribute count = {4}, Expected attribute count = {5}.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.XML_ATTRIBUTE_NAME_IS_KEY">
+            <summary>
+              Looks up a localized string similar to key.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.XML_ATTRIBUTE_NAME_IS_NAME">
+            <summary>
+              Looks up a localized string similar to name.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.XML_ATTRIBUTE_NAME_IS_SERIALIZEAS">
+            <summary>
+              Looks up a localized string similar to serializeAs.
+            </summary>
+        </member>
+        <member name="P:WizardWrx.WebApplicationAids.Properties.Resources.XML_ATTRIBUTE_NAME_IS_VALUE">
+            <summary>
+              Looks up a localized string similar to value.
+            </summary>
         </member>
     </members>
 </doc>

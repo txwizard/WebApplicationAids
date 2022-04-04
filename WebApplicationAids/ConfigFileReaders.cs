@@ -20,7 +20,7 @@
  
     Author:             David A. Gray
 
-    License:            Copyright (C) 2021, David A. Gray. 
+    License:            Copyright (C) 2021-2022, David A. Gray. 
                         All rights reserved.
 
                         Redistribution and use in source and binary forms, with
@@ -67,12 +67,15 @@
 	2021/12/19 1.0.4   DAG Fix the same object reference error that I fixed in
                            the previous version before I released version 1.0.2.
 
-    2022/04/03 1.0.20  DAG Implement method GetAppSettingsKeysFromAnyConfig.
+    2022/04/03 1.0.29  DAG Implement method GetAppSettingsKeysFromAnyConfig.
     ============================================================================
 */
 
+
+using System;
+
 using System.Collections;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Xml;
 
@@ -88,36 +91,6 @@ namespace WizardWrx.WebApplicationAids
     /// </summary>
     public static class ConfigFileReaders
     {
-        /// <summary>
-        /// A member of this enumeration is the optional penmConfigFileType
-        /// argument to GetAppSettingsKeysFromAnyConfig.
-        /// </summary>
-        public enum ConfigFileType
-        {
-            /// <summary>
-            /// The configuration file type is unknown at compile time. The
-            /// routine is on its own to figure it out.
-            /// </summary>
-            Unknown,
-
-            /// <summary>
-            /// The configuration file is a web configuration file.
-            /// </summary>
-            IsWebConfig,
-
-            /// <summary>
-            /// The configuration file belongs to an application.
-            /// </summary>
-            IsAppConfig,
-
-            /// <summary>
-            /// If the file name is web.config, treat it as a web configuration
-            /// file. Otherwise, treat it as an application configuration file.
-            /// </summary>
-            DeriveFromFileName,
-        };  // public enum ConfigFileType
-
-
         /// <summary>
         /// Get the connection string identified by name by string
         /// <paramref name="pstrConnectionStringName"/> from the official
@@ -230,11 +203,6 @@ namespace WizardWrx.WebApplicationAids
 		/// This string must be either an absolute (fully qualified) file name
 		/// or a name that is valid relative to the current working directory.
         /// </param>
-        /// <param name="penmConfigFileType">
-        /// This optional argument offers a hint in the form of a ConfigFileType
-        /// enumeration member, to help identify the structure of the configuration
-        /// file.
-        /// </param>
         /// <param name="pastrKeyNames">
         /// Pass in the list of names to include, or pass a null reference to
         /// cause all keys to be returned.
@@ -245,12 +213,33 @@ namespace WizardWrx.WebApplicationAids
         /// or all keys if <paramref name="pastrKeyNames"/> is null, contained
         /// in configuration file <paramref name="pstrAbsoluteConfigFileName"/>.
         /// </returns>
-        public static NameValueCollection GetAppSettingsKeysFromAnyConfig (
-            string pstrAbsoluteConfigFileName ,
-            ConfigFileType penmConfigFileType = ConfigFileType.Unknown ,
+        /// <exception cref="InvalidOperationException">
+        /// An InvalidOperationException Exception arises when the sections are
+        /// nested more than two deep.
+        /// </exception>
+        public static SortedDictionary<string,object> GetAppSettingsKeysFromAnyConfig (
+            string pstrAbsoluteConfigFileName ,            
             string [ ] pastrKeyNames = null )
         {
-            NameValueCollection rnvcAppSettings = new NameValueCollection ( );
+            HashSet<string> shsKeyNames = null;
+
+            if ( pastrKeyNames != null )
+            {
+                shsKeyNames = new HashSet<string> ( pastrKeyNames.Length );
+                int intNKeyNames = pastrKeyNames.Length;
+
+                for ( int intJ = ArrayInfo.ARRAY_FIRST_ELEMENT ;
+                          intJ < intNKeyNames ;
+                          intJ++ )
+                {
+                    if ( !shsKeyNames.Contains ( pastrKeyNames [ intJ ] ) )
+                    {
+                        shsKeyNames.Add ( pastrKeyNames [ intJ ] );
+                    }   // if ( !shsKeyNames.Contains ( pastrKeyNames [ intJ ] ) )
+                }   // for ( int intJ = ArrayInfo.ARRAY_FIRST_ELEMENT ; intJ < intNKeyNames ; intJ++ )
+            }   // if ( pastrKeyNames != null)
+
+            SortedDictionary<string , object> rdctAppSettings = new SortedDictionary<string , object> ( );
 
             IEnumerator inodeEnumerator1 = GetXmlNodeElementEnumerator ( pstrAbsoluteConfigFileName );
             bool fLooking4AppSettingsSection = true;
@@ -259,15 +248,17 @@ namespace WizardWrx.WebApplicationAids
             {
                 XmlElement xmlChildOfRootNode = ( XmlElement ) inodeEnumerator1.Current;
 
-                if ( xmlChildOfRootNode.Name == @"applicationSettings" || xmlChildOfRootNode.Name == @"appSettings" )
+                string strChildOfRootNameName = xmlChildOfRootNode.Name;
+
+                if ( strChildOfRootNameName == Properties.Resources.APP_SETTINGS_NAME_APP_CONFIG || strChildOfRootNameName == Properties.Resources.APP_SETTINGS_NAME_WEB_CONFIG )
                 {
                     fLooking4AppSettingsSection = false;
                     int intChildNodeCount = xmlChildOfRootNode.ChildNodes.Count;
                     TraceLogger.WriteWithBothTimesLabeledLocalFirst (
                         string.Format (
-                            @"In method GetAppSettingsKeysFromAnyConfig, found XML Node named {0} with {1} children." ,
-                            xmlChildOfRootNode.Name ,
-                            intChildNodeCount ) );
+                            Properties.Resources.TRACEMSG_1 ,                   // Format Control String
+                            strChildOfRootNameName ,                            // Format Item 0: In method GetAppSettingsKeysFromAnyConfig, found XML Node named {0}
+                            intChildNodeCount ) );                              // Format Item 1: with {1} children.
 
                     for ( int intJ = ArrayInfo.ARRAY_FIRST_ELEMENT ;
                               intJ < intChildNodeCount ;
@@ -276,52 +267,77 @@ namespace WizardWrx.WebApplicationAids
                         if ( xmlChildOfRootNode.ChildNodes [ intJ ] is XmlElement )
                         {
                             XmlElement xmlAppSettingsKey = ( XmlElement ) xmlChildOfRootNode.ChildNodes [ intJ ];
+                            int intGrandchildCount = xmlAppSettingsKey.ChildNodes.Count;
 
-                            if ( xmlAppSettingsKey.Attributes.Count == MagicNumbers.PLUS_TWO )
+                            if ( intGrandchildCount == ListInfo.LIST_IS_EMPTY )
                             {
-                                XmlAttribute xmlNameAttribute = ( XmlAttribute ) xmlAppSettingsKey.Attributes [ ArrayInfo.ARRAY_FIRST_ELEMENT ];
-                                XmlAttribute xmlValueAttribute = ( XmlAttribute ) xmlAppSettingsKey.Attributes [ ArrayInfo.ARRAY_SECOND_ELEMENT ];
-                                
-                                if ( xmlNameAttribute.Name == @"key" && xmlValueAttribute.Name == @"value" )
-                                {
-                                    rnvcAppSettings.Add (
-                                        xmlNameAttribute.Value ,
-                                        xmlValueAttribute.Value );
-                                    TraceLogger.WriteWithBothTimesLabeledLocalFirst (
-                                        string.Format (
-                                            @"    Node {0} of {1}: Name = {2}, Children = {3}, Name = {4}, Value = {5}" ,                                       // Format Control String
-                                            ArrayInfo.OrdinalFromIndex ( intJ ) ,                                                                               // Format Item 0: Node {0}
-                                            intChildNodeCount ,                                                                                                 // Format Item 1: of {1}
-                                            xmlAppSettingsKey.Name ,                                                                                            // Format Item 2: Name = {2}
-                                            xmlAppSettingsKey.ChildNodes.Count ,                                                                                // Format Item 3: Children = {3}
-                                            xmlNameAttribute.Value ,                                                                                            // Format Item 4: Name = {4}
-                                            xmlValueAttribute.Value ) );                                                                                        // Format Item 5: Value = {5}
-                                }   // TRUE (anticipated outcome) block, if ( xmlNameAttribute.Name == @"key" && xmlValueAttribute.Name == @"value" )
-                                else
-                                {
-                                    TraceLogger.WriteWithBothTimesLabeledLocalFirst (
-                                        string.Format (
-                                            @"    Node {0} of {1}: Name = {2}, Children = {3}, Attribute0Name = {4}, Attribute1Name = {5}" ,                    // Format Control String
-                                            ArrayInfo.OrdinalFromIndex ( intJ ) ,                                                                               // Format Item 0: Node {0}
-                                            intChildNodeCount ,                                                                                                 // Format Item 1: of {1}
-                                            xmlAppSettingsKey.Name ,                                                                                            // Format Item 2: Name = {2}
-                                            xmlAppSettingsKey.ChildNodes.Count ,                                                                                // Format Item 3: Children = {3}
-                                            xmlNameAttribute.Name ,                                                                                             // Format Item 4: Attribute0Name = {4}
-                                            xmlValueAttribute.Name ) );                                                                                         // Format Item 5: Attribute1Name = {5}
-                                }   // FALSE (unanticipated outcome) block, if ( xmlNameAttribute.Name == @"key" && xmlValueAttribute.Name == @"value" )
-                            }   // TRUE (anticipated outcome) block, if ( xmlAppSettingsKey.Attributes.Count == MagicNumbers.PLUS_TWO )
+                                AddElementToDoctionary (
+                                    rdctAppSettings ,
+                                    intChildNodeCount ,
+                                    intJ ,
+                                    xmlAppSettingsKey,
+                                    shsKeyNames );
+                            }   // TRUE (The element is childless.) block, if ( intGrandchildCount == ListInfo.LIST_IS_EMPTY )
                             else
-                            {
-                                TraceLogger.WriteWithBothTimesLabeledLocalFirst (
-                                    string.Format (
-                                        @"    Node {0} of {1}: Name = {2}, Children = {3}, Actual attribute count = {4}, Expected attribute count = {5}" ,      // Format Control String
-                                        ArrayInfo.OrdinalFromIndex ( intJ ) ,                                                                                   // Format Item 0: Node {0}
-                                        intChildNodeCount ,                                                                                                     // Format Item 1: of {1}
-                                        xmlAppSettingsKey.Name ,                                                                                                // Format Item 2: Name = {2}
-                                        xmlAppSettingsKey.ChildNodes.Count ,                                                                                    // Format Item 3: Children = {3}
-                                        xmlAppSettingsKey.Attributes.Count ,                                                                                    // Format Item 4: Actual attribute count = {4}
-                                        MagicNumbers.PLUS_TWO ) );                                                                                              // Format Item 5: Expected attribute count = {5}
-                            }   // FALSE (unanticipated outcome) block, if ( xmlAppSettingsKey.Attributes.Count == MagicNumbers.PLUS_TWO )
+                            {   // Create a new section, which gets its own SortedDictionary object.
+                                SortedDictionary<string , object> dctNamedConfigSection = new SortedDictionary<string , object> ( );
+                                rdctAppSettings.Add (
+                                    xmlAppSettingsKey.Name ,                    // string key
+                                    dctNamedConfigSection );                    // object value
+
+                                for ( int intK = ArrayInfo.ARRAY_FIRST_ELEMENT ;
+                                          intK < intGrandchildCount ;
+                                          intK++ )
+                                {
+                                    if ( xmlAppSettingsKey.ChildNodes [ intJ ] is XmlElement )
+                                    {
+                                        XmlElement xmlAppSettingsSectionKey = ( XmlElement ) xmlAppSettingsKey.ChildNodes [ intK ];
+                                        int intGreatGrandchildCount = xmlAppSettingsSectionKey.ChildNodes.Count;
+
+                                        switch ( intGreatGrandchildCount )
+                                        {   // xmlAppSettingsSectionKey is a configuration value; add it to the list.
+                                            case MagicNumbers.ZERO:
+                                                AddElementToDoctionary (
+                                                    dctNamedConfigSection ,
+                                                    intGreatGrandchildCount ,
+                                                    intK ,
+                                                    xmlAppSettingsSectionKey ,
+                                                    shsKeyNames );
+
+                                                break;  // Case MagicNumbers.ZERO:
+
+                                            case MagicNumbers.PLUS_ONE:
+                                                if ( xmlAppSettingsSectionKey.Attributes [ ArrayInfo.ARRAY_FIRST_ELEMENT ].Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_NAME && xmlAppSettingsSectionKey.Attributes [ ArrayInfo.ARRAY_SECOND_ELEMENT ].Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_SERIALIZEAS )
+                                                {   // The value lives in the first and only child node.
+                                                    if ( IncludeKeyInList ( xmlAppSettingsSectionKey.Attributes [ ArrayInfo.ARRAY_FIRST_ELEMENT ].Value , shsKeyNames ) )
+                                                    {
+                                                        dctNamedConfigSection.Add (
+                                                            xmlAppSettingsSectionKey.Attributes [ ArrayInfo.ARRAY_FIRST_ELEMENT ].Value ,       // string key
+                                                            xmlAppSettingsSectionKey.ChildNodes [ ArrayInfo.ARRAY_FIRST_ELEMENT ].InnerText );  // object value
+                                                    }   // if ( IncludeKeyInList ( xmlAppSettingsSectionKey.Attributes [ ArrayInfo.ARRAY_FIRST_ELEMENT ].Value , shsKeyNames ) )
+                                                }   // TRUE (anticipated outcome) block, if ( xmlAppSettingsSectionKey.Attributes [ ArrayInfo.ARRAY_FIRST_ELEMENT ].Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_NAME && xmlAppSettingsSectionKey.Attributes [ ArrayInfo.ARRAY_SECOND_ELEMENT ].Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_SERIALIZEAS )
+                                                else
+                                                {
+                                                    throw new InvalidOperationException (
+                                                        string.Format ( Properties.Resources.ERRMSG_SECTION_UNEXPECTED_GEOMETRY ,               // Format Control String
+                                                        xmlAppSettingsSectionKey ,                                                              // Format Item 0: XML Node {0}
+                                                        xmlAppSettingsKey.Name ,                                                                // Format Item 1: of parent node {1}
+                                                        xmlAppSettingsSectionKey.Attributes [ 0 ].Name ,                                        // Format Item 2: has unexpected attributes named {2}
+                                                        xmlAppSettingsSectionKey.Attributes [ 1 ].Name ) );                                     // Format Item 3: and {3}.
+                                                }   // FALSE (unanticipated outcome) block, if ( xmlAppSettingsSectionKey.Attributes [ ArrayInfo.ARRAY_FIRST_ELEMENT ].Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_NAME && xmlAppSettingsSectionKey.Attributes [ ArrayInfo.ARRAY_SECOND_ELEMENT ].Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_SERIALIZEAS )
+
+                                                break;  // Case MagicNumbers.PLUS_ONE
+
+                                            default:
+                                                throw new InvalidOperationException (
+                                                    string.Format (
+                                                        Properties.Resources.ERRMSG_SECTIONS_NESTED_TOO_DEEPLY ,                                // Format Control String
+                                                        xmlAppSettingsSectionKey.Name ,                                                         // Format Item 0: XML Element named {0}
+                                                        xmlAppSettingsKey.Name ) );                                                             // Format Item 1: of element named {1}
+                                        }   // switch ( intGreatGrandchildCount )
+                                    }   // if ( xmlAppSettingsKey.ChildNodes [ intJ ] is XmlElement )
+                                }   // for ( int intK = ArrayInfo.ARRAY_FIRST_ELEMENT ; intK < intGrandchildCount ; intK++ )
+                            }   // FALSE (The element has children.) block, if ( intGrandchildCount == ListInfo.LIST_IS_EMPTY )
                         }   // TRUE (anticipated outcome) block, if ( xmlChildOfRootNode.ChildNodes [ intJ ] is System.Xml.XmlElement )
                         else
                         {
@@ -330,29 +346,118 @@ namespace WizardWrx.WebApplicationAids
                                 XmlComment comment = ( XmlComment ) xmlChildOfRootNode.ChildNodes [ intJ ];
                                 TraceLogger.WriteWithBothTimesLabeledLocalFirst (
                                     string.Format (
-                                        @"    Node {0} of {1}: Name = {2}, Children = {3}, InnerText = {4}" ,               // Format Control String
-                                        ArrayInfo.OrdinalFromIndex ( intJ ) ,                                               // Format Item 0: Node {0}
-                                        intChildNodeCount ,                                                                 // Format Item 1: of {1}
-                                        comment.Name ,                                                                      // Format Item 2: Name = {2}
-                                        comment.ChildNodes.Count ,                                                          // Format Item 3: Children = {3}
-                                        comment.InnerText ) );                                                              // Format Item 4: InnerText = {4}
+                                        Properties.Resources.TRACEMSG_2 ,       // Format Control String
+                                        ArrayInfo.OrdinalFromIndex ( intJ ) ,   // Format Item 0: Node {0}
+                                        intChildNodeCount ,                     // Format Item 1: of {1}
+                                        comment.Name ,                          // Format Item 2: Name = {2}
+                                        comment.ChildNodes.Count ,              // Format Item 3: Children = {3}
+                                        comment.InnerText ) );                  // Format Item 4: InnerText = {4}
                             }   // TRUE (anticipated outcome) block, if ( xmlChildOfRootNode.ChildNodes [ intJ ] is XmlComment )
                             else
                             {
                                 TraceLogger.WriteWithBothTimesLabeledLocalFirst (
                                     string.Format (
-                                        @"    Node {0} of {1}: Type = {2}" ,                                                // Format Control String
-                                        ArrayInfo.OrdinalFromIndex ( intJ ) ,                                               // Format Item 0: Node {0}
-                                        intChildNodeCount ,                                                                 // Format Item 1: of {1}
-                                        xmlChildOfRootNode.ChildNodes [ intJ ].GetType ( ).FullName ) );                    // Format Item 2: Type = {2}
+                                        Properties.Resources.TRACEMSG_3 ,       // Format Control String
+                                        ArrayInfo.OrdinalFromIndex ( intJ ) ,   // Format Item 0: Node {0}
+                                        intChildNodeCount ,                     // Format Item 1: of {1}
+                                        xmlChildOfRootNode.ChildNodes [ intJ ].GetType ( ).FullName ) );    // Format Item 2: Type = {2}
                             }   // FALSE (unanticipated outcome) block, if ( xmlChildOfRootNode.ChildNodes [ intJ ] is XmlComment )
                         }   // FALSE (unanticipated outcome) block, if ( xmlChildOfRootNode.ChildNodes [ intJ ] is System.Xml.XmlElement )
                     }   // for ( int intJ = ArrayInfo.ARRAY_FIRST_ELEMENT ; intJ < intChildNodeCount ; intJ++ )
-                }   // if ( xmlChildOfRootNode.Name == @"applicationSettings" || xmlChildOfRootNode.Name == @"appSettings" )
+                }   // if ( STRcHOLDoFrOOTnODEnAME == Properties.Resources.APP_SETTINGS_NAME_APP_CONFIG || STRcHOLDoFrOOTnODEnAME == Properties.Resources.APP_SETTINGS_NAME_WEB_CONFIG )
             }   // while ( fLooking4AppSettingsSection && inodeEnumerator1.MoveNext ( ) )
 
-            return rnvcAppSettings;
+            return rdctAppSettings;
         }   // public static NameValueCollection GetAppSettingsKeysFromAnyConfig
+
+
+        /// <summary>
+        /// <para>
+        /// Assuming that <paramref name="pxmlAppSettingsKey"/> has 2 attributes
+        /// named "key" and "value" respectively, construct a new key/value pair
+        /// and append it to <paramref name="pdctAppSettings"/>,
+        /// </para>
+        /// <para>
+        /// The other two arguments, <paramref name="pntChildNodeCount"/> and
+        /// <paramref name="pintJ"/>, go into the trace logger to give the other
+        /// information context.
+        /// </para>
+        /// </summary>
+        /// <param name="pdctAppSettings">
+        /// The SortedDictionary of objects, which receive the values, keyed by
+        /// the string node names, to which the node is appended.
+        /// </param>
+        /// <param name="pntChildNodeCount">
+        /// The count of child nodes goes into the trace message.
+        /// </param>
+        /// <param name="pintJ">
+        /// The index of the FOR loop from which this routine is called goes
+        /// into the trace message.
+        /// </param>
+        /// <param name="pxmlAppSettingsKey">
+        /// This XmlElement node contains the name and value to append to the
+        /// <paramref name="pdctAppSettings"/>.
+        /// </param>
+        /// <param name="pshsKeyNames">
+        /// Optional HashSet of strings, each of which is a key to return in the
+        /// list. When this argument is omitted or null, all keys are returned.
+        /// </param>
+        private static void AddElementToDoctionary (
+            SortedDictionary<string , object> pdctAppSettings ,
+            int pntChildNodeCount ,
+            int pintJ ,
+            XmlElement pxmlAppSettingsKey ,
+            HashSet<string> pshsKeyNames )
+        {
+            if ( pxmlAppSettingsKey.Attributes.Count == MagicNumbers.PLUS_TWO )
+            {
+                XmlAttribute xmlNameAttribute = pxmlAppSettingsKey.Attributes [ ArrayInfo.ARRAY_FIRST_ELEMENT ];
+                XmlAttribute xmlValueAttribute = pxmlAppSettingsKey.Attributes [ ArrayInfo.ARRAY_SECOND_ELEMENT ];
+
+                if ( xmlNameAttribute.Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_KEY && xmlValueAttribute.Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_VALUE )
+                {
+                    if ( IncludeKeyInList ( xmlNameAttribute.Value, pshsKeyNames ) )
+                    {
+                        pdctAppSettings.Add (
+                            xmlNameAttribute.Value ,                                // string key
+                            xmlValueAttribute.Value );                              // object value
+                        TraceLogger.WriteWithBothTimesLabeledLocalFirst (
+                            string.Format (
+                                Properties.Resources.TRACEMSG_4 ,                   // Format Control String
+                                ArrayInfo.OrdinalFromIndex ( pintJ ) ,              // Format Item 0: Node {0}
+                                pntChildNodeCount ,                                 // Format Item 1: of {1}
+                                pxmlAppSettingsKey.Name ,                           // Format Item 2: Name = {2}
+                                pxmlAppSettingsKey.ChildNodes.Count ,               // Format Item 3: Children = {3}
+                                xmlNameAttribute.Value ,                            // Format Item 4: Name = {4}
+                                xmlValueAttribute.Value ) );                        // Format Item 5: Value = {5}
+                    }
+                }   // TRUE (anticipated outcome) block, if ( xmlNameAttribute.Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_KEY && xmlValueAttribute.Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_VALUE )
+                else
+                {
+                    TraceLogger.WriteWithBothTimesLabeledLocalFirst (
+                        string.Format (
+                            Properties.Resources.TRACEMSG_5 ,                   // Format Control String
+                            ArrayInfo.OrdinalFromIndex ( pintJ ) ,              // Format Item 0: Node {0}
+                            pntChildNodeCount ,                                 // Format Item 1: of {1}
+                            pxmlAppSettingsKey.Name ,                           // Format Item 2: Name = {2}
+                            pxmlAppSettingsKey.ChildNodes.Count ,               // Format Item 3: Children = {3}
+                            xmlNameAttribute.Name ,                             // Format Item 4: Attribute0Name = {4}
+                            xmlValueAttribute.Name ) );                         // Format Item 5: Attribute1Name = {5}
+                }   // FALSE (unanticipated outcome) block, if ( xmlNameAttribute.Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_KEY && xmlValueAttribute.Name == Properties.Resources.XML_ATTRIBUTE_NAME_IS_VALUE )
+            }   // TRUE (anticipated outcome) block, if ( xmlAppSettingsKey.Attributes.Count == MagicNumbers.PLUS_TWO )
+            else
+            {
+                TraceLogger.WriteWithBothTimesLabeledLocalFirst (
+                    string.Format (
+                        Properties.Resources.TRACEMSG_6 ,                       // Format Control String
+                        ArrayInfo.OrdinalFromIndex ( pintJ ) ,                  // Format Item 0: Node {0}
+                        pntChildNodeCount ,                                     // Format Item 1: of {1}
+                        pxmlAppSettingsKey.Name ,                               // Format Item 2: Name = {2}
+                        pxmlAppSettingsKey.ChildNodes.Count ,                   // Format Item 3: Children = {3}
+                        pxmlAppSettingsKey.Attributes.Count ,                   // Format Item 4: Actual attribute count = {4}
+                        MagicNumbers.PLUS_TWO ) );                              // Format Item 5: Expected attribute count = {5}
+            }   // FALSE (unanticipated outcome) block, if ( xmlAppSettingsKey.Attributes.Count == MagicNumbers.PLUS_TWO )
+        }   // private static void AddElementToDoctionary
 
 
         /// <summary>
@@ -361,8 +466,8 @@ namespace WizardWrx.WebApplicationAids
         /// <paramref name="pstrAbsoluteConfigFileName"/>.
         /// </summary>
         /// <param name="pstrAbsoluteConfigFileName">
-		/// This string must be either an absolute (fully qualified) file name
-		/// or a name that is valid relative to the current working directory.
+        /// This string must be either an absolute (fully qualified) file name
+        /// or a name that is valid relative to the current working directory.
         /// This parameter is a pass-through from the caller's argument list.
         /// </param>
         /// <returns>
@@ -380,13 +485,63 @@ namespace WizardWrx.WebApplicationAids
             {   // Since the generic enumerator returns an equally generic object, the type cast must be explicit.
                 XmlElement xmlChildOfRootNode = ( XmlElement ) enumerator1.Current;
 
-                if ( xmlChildOfRootNode.Name == @"configuration" )
+                if ( xmlChildOfRootNode.Name == Properties.Resources.APP_SETTINGS_NAME_CONFIGURATION )
                 {
                     return xmlChildOfRootNode.GetEnumerator ( );
-                }   // if ( xmlChildOfRootNode.Name == @"configuration" )
+                }   // if ( xmlChildOfRootNode.Name == Properties.Resources.APP_SETTINGS_NAME_CONFIGURATION )
             }   // while ( enumerator1.MoveNext ( ) )
 
             return null;
         }   // private static IEnumerator GetXmlNodeElementEnumerator
+
+
+        /// <summary>
+        /// Pass in the HashSet that was supplied to the calling routine if
+        /// there is one. When <paramref name="pshsKeyNames"/> is either empty
+        /// or the null reference, all keys are returned.
+        /// </summary>
+        /// <param name="pstrKeyName">
+        /// The string representation of the current key to match against the
+        /// list in <paramref name="pshsKeyNames"/> if present.
+        /// </param>
+        /// <param name="pshsKeyNames">
+        /// Pass in an optional HashSet of keys to include in the report. When
+        /// this argument is an empty HashSet or a null reference, the method
+        /// returns True, causing all keys to be returned.
+        /// </param>
+        /// <returns>
+        /// When <paramref name="pshsKeyNames"/> is empty or a null reference,
+        /// return TRUE, causing all keys to be returned. Otherwise, return TRUE
+        /// only when <paramref name="pstrKeyName"/> is valid (neither a null
+        /// reference, nor the empty string) and it is in the
+        /// <paramref name="pshsKeyNames"/> list.
+        /// </returns>
+        private static bool IncludeKeyInList (
+            string pstrKeyName ,
+            HashSet<string> pshsKeyNames = null )
+        {
+            if ( string.IsNullOrEmpty ( pstrKeyName ) )
+            {
+                return true;
+            }   // TRUE (The key name is empty.) block, if ( string.IsNullOrEmpty ( pstrKeyName ) )
+            else
+            {
+                if ( pshsKeyNames == null )
+                {
+                    return true;
+                }   // TRUE (There is no key list.) block, if ( pshsKeyNames == null )
+                else
+                {
+                    if ( pshsKeyNames.Count == ListInfo.LIST_IS_EMPTY )
+                    {
+                        return true;
+                    }   // TRUE (The key list is empty.) block, if ( pshsKeyNames.Count == ListInfo.LIST_IS_EMPTY )
+                    else
+                    {
+                        return pshsKeyNames.Contains ( pstrKeyName );
+                    }   // FALSE (The key list contains values.) block, if ( pshsKeyNames.Count == ListInfo.LIST_IS_EMPTY )
+                }   // FALSE (The caller supplied a key list.) block, if ( pshsKeyNames == null )
+            }   // FALSE (The key name contains text.) block, if ( string.IsNullOrEmpty ( pstrKeyName ) )
+        }   // private static bool IncludeKeyInList
     }   // public static class ConfigFileReaders
 }   // partial WizardWrx.WebApplicationAids

@@ -10,7 +10,7 @@
     	<projectUrl>https://github.com/txwizard/WebApplicationAids</projectUrl>
 	    <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>$description$</description>
-	    <releaseNotes>This update of the WizardWrx.WebApplicationAids implements a new GetAppSettingsKeysFromAnyConfig method.</releaseNotes>
+	    <releaseNotes>This update of the WizardWrx.WebApplicationAids implements a new GetAppSettingsKeysFromAnyConfig method. See Changelog.md for details.</releaseNotes>
     	<copyright>$copyright$</copyright>
     	<tags>ConnectionString app.config web.config</tags>
         <dependencies>

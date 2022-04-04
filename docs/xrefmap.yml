@@ -1,44 +1,6 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
-- uid: TestStand.Properties
-  name: TestStand.Properties
-  href: api/TestStand.Properties.html
-  commentId: N:TestStand.Properties
-  fullName: TestStand.Properties
-  nameWithType: TestStand.Properties
-- uid: TestStand.Properties.Settings
-  name: Settings
-  href: api/TestStand.Properties.Settings.html
-  commentId: T:TestStand.Properties.Settings
-  fullName: TestStand.Properties.Settings
-  nameWithType: Settings
-- uid: TestStand.Properties.Settings.Default
-  name: Default
-  href: api/TestStand.Properties.Settings.html#TestStand_Properties_Settings_Default
-  commentId: P:TestStand.Properties.Settings.Default
-  fullName: TestStand.Properties.Settings.Default
-  nameWithType: Settings.Default
-- uid: TestStand.Properties.Settings.Default*
-  name: Default
-  href: api/TestStand.Properties.Settings.html#TestStand_Properties_Settings_Default_
-  commentId: Overload:TestStand.Properties.Settings.Default
-  isSpec: "True"
-  fullName: TestStand.Properties.Settings.Default
-  nameWithType: Settings.Default
-- uid: TestStand.Properties.Settings.TimedWaitTestCasesFQFN
-  name: TimedWaitTestCasesFQFN
-  href: api/TestStand.Properties.Settings.html#TestStand_Properties_Settings_TimedWaitTestCasesFQFN
-  commentId: P:TestStand.Properties.Settings.TimedWaitTestCasesFQFN
-  fullName: TestStand.Properties.Settings.TimedWaitTestCasesFQFN
-  nameWithType: Settings.TimedWaitTestCasesFQFN
-- uid: TestStand.Properties.Settings.TimedWaitTestCasesFQFN*
-  name: TimedWaitTestCasesFQFN
-  href: api/TestStand.Properties.Settings.html#TestStand_Properties_Settings_TimedWaitTestCasesFQFN_
-  commentId: Overload:TestStand.Properties.Settings.TimedWaitTestCasesFQFN
-  isSpec: "True"
-  fullName: TestStand.Properties.Settings.TimedWaitTestCasesFQFN
-  nameWithType: Settings.TimedWaitTestCasesFQFN
 - uid: WizardWrx.WebApplicationAids
   name: WizardWrx.WebApplicationAids
   href: api/WizardWrx.WebApplicationAids.html
@@ -51,45 +13,15 @@ references:
   commentId: T:WizardWrx.WebApplicationAids.ConfigFileReaders
   fullName: WizardWrx.WebApplicationAids.ConfigFileReaders
   nameWithType: ConfigFileReaders
-- uid: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
-  name: ConfigFileReaders.ConfigFileType
-  href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.html
-  commentId: T:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
-  fullName: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType
-  nameWithType: ConfigFileReaders.ConfigFileType
-- uid: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.DeriveFromFileName
-  name: DeriveFromFileName
-  href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.html#WizardWrx_WebApplicationAids_ConfigFileReaders_ConfigFileType_DeriveFromFileName
-  commentId: F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.DeriveFromFileName
-  fullName: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.DeriveFromFileName
-  nameWithType: ConfigFileReaders.ConfigFileType.DeriveFromFileName
-- uid: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsAppConfig
-  name: IsAppConfig
-  href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.html#WizardWrx_WebApplicationAids_ConfigFileReaders_ConfigFileType_IsAppConfig
-  commentId: F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsAppConfig
-  fullName: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsAppConfig
-  nameWithType: ConfigFileReaders.ConfigFileType.IsAppConfig
-- uid: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsWebConfig
-  name: IsWebConfig
-  href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.html#WizardWrx_WebApplicationAids_ConfigFileReaders_ConfigFileType_IsWebConfig
-  commentId: F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsWebConfig
-  fullName: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.IsWebConfig
-  nameWithType: ConfigFileReaders.ConfigFileType.IsWebConfig
-- uid: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.Unknown
-  name: Unknown
-  href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.html#WizardWrx_WebApplicationAids_ConfigFileReaders_ConfigFileType_Unknown
-  commentId: F:WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.Unknown
-  fullName: WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.Unknown
-  nameWithType: ConfigFileReaders.ConfigFileType.Unknown
-- uid: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType,System.String[])
-  name: GetAppSettingsKeysFromAnyConfig(String, ConfigFileReaders.ConfigFileType, String[])
-  href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.html#WizardWrx_WebApplicationAids_ConfigFileReaders_GetAppSettingsKeysFromAnyConfig_System_String_WizardWrx_WebApplicationAids_ConfigFileReaders_ConfigFileType_System_String___
-  commentId: M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType,System.String[])
-  name.vb: GetAppSettingsKeysFromAnyConfig(String, ConfigFileReaders.ConfigFileType, String())
-  fullName: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String, WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType, System.String[])
-  fullName.vb: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String, WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType, System.String())
-  nameWithType: ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(String, ConfigFileReaders.ConfigFileType, String[])
-  nameWithType.vb: ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(String, ConfigFileReaders.ConfigFileType, String())
+- uid: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,System.String[])
+  name: GetAppSettingsKeysFromAnyConfig(String, String[])
+  href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.html#WizardWrx_WebApplicationAids_ConfigFileReaders_GetAppSettingsKeysFromAnyConfig_System_String_System_String___
+  commentId: M:WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String,System.String[])
+  name.vb: GetAppSettingsKeysFromAnyConfig(String, String())
+  fullName: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String, System.String[])
+  fullName.vb: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(System.String, System.String())
+  nameWithType: ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(String, String[])
+  nameWithType.vb: ConfigFileReaders.GetAppSettingsKeysFromAnyConfig(String, String())
 - uid: WizardWrx.WebApplicationAids.ConfigFileReaders.GetAppSettingsKeysFromAnyConfig*
   name: GetAppSettingsKeysFromAnyConfig
   href: api/WizardWrx.WebApplicationAids.ConfigFileReaders.html#WizardWrx_WebApplicationAids_ConfigFileReaders_GetAppSettingsKeysFromAnyConfig_

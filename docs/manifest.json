@@ -5,47 +5,11 @@
   "files": [
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/TestStand.Properties.Settings.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/TestStand.Properties.Settings.html",
-          "hash": "j3YzfbO9E0qv+FuEvJzV1w=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/TestStand.Properties.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/TestStand.Properties.html",
-          "hash": "WVsj/yVhD+pHN0bmVKDgXw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/WizardWrx.WebApplicationAids.ConfigFileReaders.ConfigFileType.html",
-          "hash": "Nr5x1D4AF6maSI9p6l1nQw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/WizardWrx.WebApplicationAids.ConfigFileReaders.yml",
       "output": {
         ".html": {
           "relative_path": "api/WizardWrx.WebApplicationAids.ConfigFileReaders.html",
-          "hash": "bw+36sDRA1TB9OrF8MdZRQ=="
+          "hash": "mZRi/CVsrenov29JUb2jAw=="
         }
       },
       "is_incremental": false,
@@ -57,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/WizardWrx.WebApplicationAids.html",
-          "hash": "jzE0BAC6cZKyVA7T3zHPQQ=="
+          "hash": "pZofx5m/qg9hT4QVOKAbrQ=="
         }
       },
       "is_incremental": false,
@@ -81,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "DyHL/FuB6bApeCH8E1xYRQ=="
+          "hash": "vzyYW8PiPcuaIGNf5dSFPw=="
         }
       },
       "is_incremental": false,
@@ -154,8 +118,8 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 5,
-          "skipped_file_count": 1
+          "total_file_count": 2,
+          "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
