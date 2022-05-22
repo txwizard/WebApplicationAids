@@ -1,6 +1,15 @@
 ﻿# WizardWrxWebApplicationAids Change Log
 
 This file is a cumulative history of releases arranged from newest to oldest.
+## 2022-05-21, Version 1.0.31
+
+To compensate for an apparent change in the behavior of the NuGet Package Manager
+implementation in Visual Studio 2019, all NuGet in the WizardWrx .NET API
+constellation of libraries, along with WizardWrx NuGet packages that depend upon
+them, are being re-released with dependencies named explicitly in the generated
+.nuspec file that goes into the package. This is accomplished by adding the
+IncludeReferencedProjects to the NuGet Pack command line. Otherwise, the program
+source code is unchanged, nor are the binaries.
 
 ## 2022-04-04, Version 1.0.29
 
