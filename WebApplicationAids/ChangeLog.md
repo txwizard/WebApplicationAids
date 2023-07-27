@@ -5,6 +5,13 @@ This file is a cumulative history of releases arranged from newest to oldest.
 This update resolves the issue that dependencies aren't advertised. Henceforth,
 release will coincide with bug fixes and feature updates.
 
+## 2023-07-26, Version 1.1.40
+
+This update refreshes the dependencies, all of which now target Microsoft .NET
+Framework version 4.8.
+
+The code is otherwise unchanged, since the library already targets that version.
+
 ## 2022-05-21, Version 1.0.31
 
 To compensate for an apparent change in the behavior of the NuGet Package Manager

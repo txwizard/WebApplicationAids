@@ -32,3 +32,4 @@ D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebAppli
 D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids_TestStand\obj\Release\TestStand.pdb
 D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids_TestStand\bin\Release\WizardWrx.WebApplicationAids.xml
 D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids_TestStand\bin\Release\WizardWrx.DLLConfigurationManager.dll.config
+D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\WebApplicationAids_TestStand\obj\Release\WebApplicationAids_TestStand.csproj.SuggestedBindingRedirects.cache

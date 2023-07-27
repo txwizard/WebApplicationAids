@@ -34,7 +34,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration ( "" )]
 [assembly: AssemblyCompany ( "David A. Gray" )]
 [assembly: AssemblyProduct ( "WizardWrx .NET Application Support Libraries" )]
-[assembly: AssemblyCopyright ( "Copyright 2022, David A. Gray" )]
+[assembly: AssemblyCopyright ( "Copyright 2022-2023, David A. Gray" )]
 [assembly: AssemblyTrademark ( "This library is distributed under a three-clause BSD license." )]
 [assembly: AssemblyCulture ( "" )]
 
@@ -56,4 +56,4 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion ( "1.0.40.0" )]
+[assembly: AssemblyVersion ( "1.1.42.0" )]

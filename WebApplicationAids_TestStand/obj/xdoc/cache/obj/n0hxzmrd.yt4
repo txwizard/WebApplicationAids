@@ -1,0 +1,10 @@
+id: WebApplicationAids_TestStand
+language: CSharp
+name:
+  Default: WebApplicationAids_TestStand
+qualifiedName:
+  Default: WebApplicationAids_TestStand
+type: Assembly
+modifiers: {}
+items: []
+references: {}

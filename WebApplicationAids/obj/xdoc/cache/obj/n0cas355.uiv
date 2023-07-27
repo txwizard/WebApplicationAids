@@ -1,0 +1,10 @@
+id: WebApplicationAids
+language: CSharp
+name:
+  Default: WebApplicationAids
+qualifiedName:
+  Default: WebApplicationAids
+type: Assembly
+modifiers: {}
+items: []
+references: {}

@@ -68,6 +68,9 @@
 
     2022/04/03 1.0.36  DAG Extend the unit test to cover a new method,
                            GetAppSettingsKeysFromAnyConfig.
+
+    2023/07/26 1.1.42  DAG Point to the configuration files that I copied into
+                           the /NOTES directory hidden in the solution tree.
     ============================================================================
 */
 
@@ -117,7 +120,7 @@ namespace WebApplicationAids_TestStand
         };  // static readonly string [ ] s_astrKeyFilterList
 
         const string SAMPLE_APP_CONFIG_FILENAME = @"D:\Source_Code\Visual_Studio\Projects\SalesTalk\Source\salestalk\LeadLife\LeadLife.Operations\User_Activity_Report\App.config";
-        const string SAMPLE_WEB_CONFIG_FILENAME = @"D:\SalesTalk\_Say2Sell\Free_Trial\Web_SalesAcceleration_20211110_112338.config";
+        const string SAMPLE_WEB_CONFIG_FILENAME = @"D:\Source_Code\Visual_Studio\Projects\WizardWrx_Libs\WebApplicationAids\NOTES\SalesAcceleration_Web_20230326_172832.config";
 
         static void Main ( string [ ] pastrArgs )
         {
@@ -273,8 +276,8 @@ namespace WebApplicationAids_TestStand
                     string strKeyValue = kvpFlat.Value.ToString ( );
                     string strLineTerminator = LineTerminator ( intOrdinal , pdctAppSettings1.Count );
                     Console.WriteLine (
-                        @"        Setting {0}: Name = {1}, Value = {2}{3}" ,                    // Format Control String
-                        ++intOrdinal ,                                                          // Format Item 0: Setting {0}
+                        @"        Setting {0,2}: Name = {1}, Value = {2}{3}" ,                 // Format Control String
+                        ++intOrdinal ,                                                          // Format Item 0: Setting {0,-2}
                         strKeyName ,                                                            // Format Item 1: Name = {1}
                         strKeyValue ,                                                           // Format Item 2: Value = {2}
                         strLineTerminator );                                                    // Format Item 3: {3}
@@ -296,8 +299,8 @@ namespace WebApplicationAids_TestStand
                             string strKeyValue = kvpConfigSection.Value.ToString ( );
                             string strLineTerminator = LineTerminator ( intSectionOrdinal , dctConfigSection.Count );
                             Console.WriteLine (
-                                @"            Setting {0}: Name = {1}, Value = {2}{3}" ,        // Format Control String
-                                ++intSectionOrdinal ,                                           // Format Item 0: Setting {0}
+                                @"            Setting {0,2}: Name = {1}, Value = {2}{3}" ,     // Format Control String
+                                ++intSectionOrdinal ,                                           // Format Item 0: Setting {0,-2}
                                 strKeyName ,                                                    // Format Item 1: Name = {1}
                                 strKeyValue ,                                                   // Format Item 2: Value = {2}
                                 strLineTerminator );                                            // Format Item 3: {3}

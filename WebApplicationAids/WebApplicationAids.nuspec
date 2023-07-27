@@ -10,7 +10,7 @@
     	<projectUrl>https://github.com/txwizard/WebApplicationAids</projectUrl>
 	    <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>$description$</description>
-        <releaseNotes>This update resolves the issue that dependencies aren't being advertised. Future releases will be bug fixes and feature updates.</releaseNotes>
+        <releaseNotes>This update refreshes the dependencies, all of which now target Microsoft .NET Framework version 4.8. The code is otherwise unchanged, since the library already targets that version.</releaseNotes>
         <copyright>$copyright$</copyright>
     	<tags>ConnectionString app.config web.config</tags>
         <dependencies>
